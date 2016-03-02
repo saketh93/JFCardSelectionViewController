@@ -1,0 +1,3 @@
+[submodule "Vendor/Extensions"]
+	path = Vendor/Extensions
+	url = git@github.com:atljeremy/Extensions

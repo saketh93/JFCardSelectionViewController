@@ -1,0 +1,589 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		1935E6A21C8618C500449C48 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1935E6A11C8618C500449C48 /* AppDelegate.swift */; };
+		1935E6A41C8618C500449C48 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1935E6A31C8618C500449C48 /* ViewController.swift */; };
+		1935E6A71C8618C500449C48 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1935E6A51C8618C500449C48 /* Main.storyboard */; };
+		1935E6A91C8618C500449C48 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1935E6A81C8618C500449C48 /* Assets.xcassets */; };
+		1935E6AC1C8618C500449C48 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1935E6AA1C8618C500449C48 /* LaunchScreen.storyboard */; };
+		1935E6B71C8618C500449C48 /* JFCardSelectionViewControllerExmapleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1935E6B61C8618C500449C48 /* JFCardSelectionViewControllerExmapleTests.swift */; };
+		1935E6C21C8618C500449C48 /* JFCardSelectionViewControllerExmapleUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1935E6C11C8618C500449C48 /* JFCardSelectionViewControllerExmapleUITests.swift */; };
+		1935E6D81C8618ED00449C48 /* JFCardSelectionViewController.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1935E6D51C8618CF00449C48 /* JFCardSelectionViewController.framework */; };
+		1935E6D91C8618ED00449C48 /* JFCardSelectionViewController.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 1935E6D51C8618CF00449C48 /* JFCardSelectionViewController.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		1935E6B31C8618C500449C48 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 1935E6961C8618C500449C48 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 1935E69D1C8618C500449C48;
+			remoteInfo = JFCardSelectionViewControllerExmaple;
+		};
+		1935E6BE1C8618C500449C48 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 1935E6961C8618C500449C48 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 1935E69D1C8618C500449C48;
+			remoteInfo = JFCardSelectionViewControllerExmaple;
+		};
+		1935E6D41C8618CF00449C48 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 1935E6CF1C8618CE00449C48 /* JFCardSelectionViewController.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 1935E67B1C86186100449C48;
+			remoteInfo = JFCardSelectionViewController;
+		};
+		1935E6D61C8618CF00449C48 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 1935E6CF1C8618CE00449C48 /* JFCardSelectionViewController.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 1935E6851C86186100449C48;
+			remoteInfo = JFCardSelectionViewControllerTests;
+		};
+		1935E6DA1C8618ED00449C48 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 1935E6CF1C8618CE00449C48 /* JFCardSelectionViewController.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 1935E67A1C86186100449C48;
+			remoteInfo = JFCardSelectionViewController;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		1935E6DC1C8618ED00449C48 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				1935E6D91C8618ED00449C48 /* JFCardSelectionViewController.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		1935E69E1C8618C500449C48 /* JFCardSelectionViewControllerExmaple.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JFCardSelectionViewControllerExmaple.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		1935E6A11C8618C500449C48 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		1935E6A31C8618C500449C48 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		1935E6A61C8618C500449C48 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		1935E6A81C8618C500449C48 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		1935E6AB1C8618C500449C48 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		1935E6AD1C8618C500449C48 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		1935E6B21C8618C500449C48 /* JFCardSelectionViewControllerExmapleTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = JFCardSelectionViewControllerExmapleTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		1935E6B61C8618C500449C48 /* JFCardSelectionViewControllerExmapleTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JFCardSelectionViewControllerExmapleTests.swift; sourceTree = "<group>"; };
+		1935E6B81C8618C500449C48 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		1935E6BD1C8618C500449C48 /* JFCardSelectionViewControllerExmapleUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = JFCardSelectionViewControllerExmapleUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		1935E6C11C8618C500449C48 /* JFCardSelectionViewControllerExmapleUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JFCardSelectionViewControllerExmapleUITests.swift; sourceTree = "<group>"; };
+		1935E6C31C8618C500449C48 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		1935E6CF1C8618CE00449C48 /* JFCardSelectionViewController.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = JFCardSelectionViewController.xcodeproj; path = ../JFCardSelectionViewController.xcodeproj; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		1935E69B1C8618C500449C48 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1935E6D81C8618ED00449C48 /* JFCardSelectionViewController.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1935E6AF1C8618C500449C48 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1935E6BA1C8618C500449C48 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		1935E6951C8618C500449C48 = {
+			isa = PBXGroup;
+			children = (
+				1935E6CF1C8618CE00449C48 /* JFCardSelectionViewController.xcodeproj */,
+				1935E6A01C8618C500449C48 /* JFCardSelectionViewControllerExmaple */,
+				1935E6B51C8618C500449C48 /* JFCardSelectionViewControllerExmapleTests */,
+				1935E6C01C8618C500449C48 /* JFCardSelectionViewControllerExmapleUITests */,
+				1935E69F1C8618C500449C48 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		1935E69F1C8618C500449C48 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				1935E69E1C8618C500449C48 /* JFCardSelectionViewControllerExmaple.app */,
+				1935E6B21C8618C500449C48 /* JFCardSelectionViewControllerExmapleTests.xctest */,
+				1935E6BD1C8618C500449C48 /* JFCardSelectionViewControllerExmapleUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		1935E6A01C8618C500449C48 /* JFCardSelectionViewControllerExmaple */ = {
+			isa = PBXGroup;
+			children = (
+				1935E6A11C8618C500449C48 /* AppDelegate.swift */,
+				1935E6A31C8618C500449C48 /* ViewController.swift */,
+				1935E6A51C8618C500449C48 /* Main.storyboard */,
+				1935E6A81C8618C500449C48 /* Assets.xcassets */,
+				1935E6AA1C8618C500449C48 /* LaunchScreen.storyboard */,
+				1935E6AD1C8618C500449C48 /* Info.plist */,
+			);
+			path = JFCardSelectionViewControllerExmaple;
+			sourceTree = "<group>";
+		};
+		1935E6B51C8618C500449C48 /* JFCardSelectionViewControllerExmapleTests */ = {
+			isa = PBXGroup;
+			children = (
+				1935E6B61C8618C500449C48 /* JFCardSelectionViewControllerExmapleTests.swift */,
+				1935E6B81C8618C500449C48 /* Info.plist */,
+			);
+			path = JFCardSelectionViewControllerExmapleTests;
+			sourceTree = "<group>";
+		};
+		1935E6C01C8618C500449C48 /* JFCardSelectionViewControllerExmapleUITests */ = {
+			isa = PBXGroup;
+			children = (
+				1935E6C11C8618C500449C48 /* JFCardSelectionViewControllerExmapleUITests.swift */,
+				1935E6C31C8618C500449C48 /* Info.plist */,
+			);
+			path = JFCardSelectionViewControllerExmapleUITests;
+			sourceTree = "<group>";
+		};
+		1935E6D01C8618CE00449C48 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				1935E6D51C8618CF00449C48 /* JFCardSelectionViewController.framework */,
+				1935E6D71C8618CF00449C48 /* JFCardSelectionViewControllerTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		1935E69D1C8618C500449C48 /* JFCardSelectionViewControllerExmaple */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1935E6C61C8618C500449C48 /* Build configuration list for PBXNativeTarget "JFCardSelectionViewControllerExmaple" */;
+			buildPhases = (
+				1935E69A1C8618C500449C48 /* Sources */,
+				1935E69B1C8618C500449C48 /* Frameworks */,
+				1935E69C1C8618C500449C48 /* Resources */,
+				1935E6DC1C8618ED00449C48 /* Embed Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				1935E6DB1C8618ED00449C48 /* PBXTargetDependency */,
+			);
+			name = JFCardSelectionViewControllerExmaple;
+			productName = JFCardSelectionViewControllerExmaple;
+			productReference = 1935E69E1C8618C500449C48 /* JFCardSelectionViewControllerExmaple.app */;
+			productType = "com.apple.product-type.application";
+		};
+		1935E6B11C8618C500449C48 /* JFCardSelectionViewControllerExmapleTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1935E6C91C8618C500449C48 /* Build configuration list for PBXNativeTarget "JFCardSelectionViewControllerExmapleTests" */;
+			buildPhases = (
+				1935E6AE1C8618C500449C48 /* Sources */,
+				1935E6AF1C8618C500449C48 /* Frameworks */,
+				1935E6B01C8618C500449C48 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				1935E6B41C8618C500449C48 /* PBXTargetDependency */,
+			);
+			name = JFCardSelectionViewControllerExmapleTests;
+			productName = JFCardSelectionViewControllerExmapleTests;
+			productReference = 1935E6B21C8618C500449C48 /* JFCardSelectionViewControllerExmapleTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		1935E6BC1C8618C500449C48 /* JFCardSelectionViewControllerExmapleUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1935E6CC1C8618C500449C48 /* Build configuration list for PBXNativeTarget "JFCardSelectionViewControllerExmapleUITests" */;
+			buildPhases = (
+				1935E6B91C8618C500449C48 /* Sources */,
+				1935E6BA1C8618C500449C48 /* Frameworks */,
+				1935E6BB1C8618C500449C48 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				1935E6BF1C8618C500449C48 /* PBXTargetDependency */,
+			);
+			name = JFCardSelectionViewControllerExmapleUITests;
+			productName = JFCardSelectionViewControllerExmapleUITests;
+			productReference = 1935E6BD1C8618C500449C48 /* JFCardSelectionViewControllerExmapleUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		1935E6961C8618C500449C48 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0720;
+				LastUpgradeCheck = 0720;
+				ORGANIZATIONNAME = "Jeremy Fox";
+				TargetAttributes = {
+					1935E69D1C8618C500449C48 = {
+						CreatedOnToolsVersion = 7.2.1;
+					};
+					1935E6B11C8618C500449C48 = {
+						CreatedOnToolsVersion = 7.2.1;
+						TestTargetID = 1935E69D1C8618C500449C48;
+					};
+					1935E6BC1C8618C500449C48 = {
+						CreatedOnToolsVersion = 7.2.1;
+						TestTargetID = 1935E69D1C8618C500449C48;
+					};
+				};
+			};
+			buildConfigurationList = 1935E6991C8618C500449C48 /* Build configuration list for PBXProject "JFCardSelectionViewControllerExmaple" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 1935E6951C8618C500449C48;
+			productRefGroup = 1935E69F1C8618C500449C48 /* Products */;
+			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 1935E6D01C8618CE00449C48 /* Products */;
+					ProjectRef = 1935E6CF1C8618CE00449C48 /* JFCardSelectionViewController.xcodeproj */;
+				},
+			);
+			projectRoot = "";
+			targets = (
+				1935E69D1C8618C500449C48 /* JFCardSelectionViewControllerExmaple */,
+				1935E6B11C8618C500449C48 /* JFCardSelectionViewControllerExmapleTests */,
+				1935E6BC1C8618C500449C48 /* JFCardSelectionViewControllerExmapleUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		1935E6D51C8618CF00449C48 /* JFCardSelectionViewController.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = JFCardSelectionViewController.framework;
+			remoteRef = 1935E6D41C8618CF00449C48 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		1935E6D71C8618CF00449C48 /* JFCardSelectionViewControllerTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = JFCardSelectionViewControllerTests.xctest;
+			remoteRef = 1935E6D61C8618CF00449C48 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
+
+/* Begin PBXResourcesBuildPhase section */
+		1935E69C1C8618C500449C48 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1935E6AC1C8618C500449C48 /* LaunchScreen.storyboard in Resources */,
+				1935E6A91C8618C500449C48 /* Assets.xcassets in Resources */,
+				1935E6A71C8618C500449C48 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1935E6B01C8618C500449C48 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1935E6BB1C8618C500449C48 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		1935E69A1C8618C500449C48 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1935E6A41C8618C500449C48 /* ViewController.swift in Sources */,
+				1935E6A21C8618C500449C48 /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1935E6AE1C8618C500449C48 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1935E6B71C8618C500449C48 /* JFCardSelectionViewControllerExmapleTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1935E6B91C8618C500449C48 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1935E6C21C8618C500449C48 /* JFCardSelectionViewControllerExmapleUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		1935E6B41C8618C500449C48 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 1935E69D1C8618C500449C48 /* JFCardSelectionViewControllerExmaple */;
+			targetProxy = 1935E6B31C8618C500449C48 /* PBXContainerItemProxy */;
+		};
+		1935E6BF1C8618C500449C48 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 1935E69D1C8618C500449C48 /* JFCardSelectionViewControllerExmaple */;
+			targetProxy = 1935E6BE1C8618C500449C48 /* PBXContainerItemProxy */;
+		};
+		1935E6DB1C8618ED00449C48 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = JFCardSelectionViewController;
+			targetProxy = 1935E6DA1C8618ED00449C48 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		1935E6A51C8618C500449C48 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				1935E6A61C8618C500449C48 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		1935E6AA1C8618C500449C48 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				1935E6AB1C8618C500449C48 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		1935E6C41C8618C500449C48 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		1935E6C51C8618C500449C48 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		1935E6C71C8618C500449C48 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = JFCardSelectionViewControllerExmaple/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.jeremyfox.JFCardSelectionViewControllerExmaple;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		1935E6C81C8618C500449C48 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = JFCardSelectionViewControllerExmaple/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.jeremyfox.JFCardSelectionViewControllerExmaple;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		1935E6CA1C8618C500449C48 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				INFOPLIST_FILE = JFCardSelectionViewControllerExmapleTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.jeremyfox.JFCardSelectionViewControllerExmapleTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/JFCardSelectionViewControllerExmaple.app/JFCardSelectionViewControllerExmaple";
+			};
+			name = Debug;
+		};
+		1935E6CB1C8618C500449C48 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				INFOPLIST_FILE = JFCardSelectionViewControllerExmapleTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.jeremyfox.JFCardSelectionViewControllerExmapleTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/JFCardSelectionViewControllerExmaple.app/JFCardSelectionViewControllerExmaple";
+			};
+			name = Release;
+		};
+		1935E6CD1C8618C500449C48 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = JFCardSelectionViewControllerExmapleUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.jeremyfox.JFCardSelectionViewControllerExmapleUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = JFCardSelectionViewControllerExmaple;
+				USES_XCTRUNNER = YES;
+			};
+			name = Debug;
+		};
+		1935E6CE1C8618C500449C48 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = JFCardSelectionViewControllerExmapleUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.jeremyfox.JFCardSelectionViewControllerExmapleUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = JFCardSelectionViewControllerExmaple;
+				USES_XCTRUNNER = YES;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		1935E6991C8618C500449C48 /* Build configuration list for PBXProject "JFCardSelectionViewControllerExmaple" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1935E6C41C8618C500449C48 /* Debug */,
+				1935E6C51C8618C500449C48 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		1935E6C61C8618C500449C48 /* Build configuration list for PBXNativeTarget "JFCardSelectionViewControllerExmaple" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1935E6C71C8618C500449C48 /* Debug */,
+				1935E6C81C8618C500449C48 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		1935E6C91C8618C500449C48 /* Build configuration list for PBXNativeTarget "JFCardSelectionViewControllerExmapleTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1935E6CA1C8618C500449C48 /* Debug */,
+				1935E6CB1C8618C500449C48 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		1935E6CC1C8618C500449C48 /* Build configuration list for PBXNativeTarget "JFCardSelectionViewControllerExmapleUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1935E6CD1C8618C500449C48 /* Debug */,
+				1935E6CE1C8618C500449C48 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 1935E6961C8618C500449C48 /* Project object */;
+}

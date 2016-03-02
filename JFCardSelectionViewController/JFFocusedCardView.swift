@@ -14,10 +14,15 @@ class JFFocusedCardView: UIView {
     @IBOutlet var titleLabel: UILabel!
     @IBOutlet var subTitleLabelOne: UILabel!
     @IBOutlet var subTitleLabelTwo: UILabel!
-    
-    func configureForCard(card: CardPresentable) {
+
+    override func awakeFromNib() {
+        super.awakeFromNib()
         imageView.clipsToBounds = true
         imageView.layer.cornerRadius = 2
+        sendSubviewToBack(imageView)
+    }
+    
+    func configureForCard(card: CardPresentable) {
         imageView.loadImageAtURL(card.imageURLString, withDefaultImage: nil)
         
         let shadow = NSShadow()
@@ -29,6 +34,7 @@ class JFFocusedCardView: UIView {
         ]
         titleLabel.attributedText = NSAttributedString(string: card.titleText, attributes: attributes)
         subTitleLabelOne.attributedText = NSAttributedString(string: card.detailText, attributes: attributes)
+        subTitleLabelTwo.attributedText = NSAttributedString(string: card.detailText, attributes: attributes)
     }
 
 }

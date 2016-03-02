@@ -13,6 +13,10 @@ class JFCardSelectionViewFlowLayout: UICollectionViewFlowLayout {
     override init() {
         super.init()
         scrollDirection = .Horizontal
+        minimumLineSpacing = -10
+        itemSize = CGSize(width: 100, height: 110)
+        minimumInteritemSpacing = 1000
+        sectionInset = UIEdgeInsets(top: 0, left: 8, bottom: 0, right: 8)
     }
 
     required init?(coder aDecoder: NSCoder) {

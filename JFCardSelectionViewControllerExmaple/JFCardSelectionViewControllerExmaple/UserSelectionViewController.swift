@@ -9,8 +9,8 @@
 import UIKit
 import JFCardSelectionViewController
 
-class ViewController: UIViewController {
-
+class UserSelectionViewController: JFCardSelectionViewController {
+    
     let cards = [
         User(name: "John Smith", photoURL: "https://www.cheme.cornell.edu/engineering2/customcf/iws_news/uploads/alabi__reis.jpg", address: "123 Main St", city: "Atlanta", state: "GA", zip: 12345),
         User(name: "Jim Smith", photoURL: "http://www.geek.com/wp-content/uploads/2010/07/Scott-Forstall-Executive-profile-image.jpg", address: "234 Main St", city: "Atlanta", state: "GA", zip: 12345),
@@ -21,28 +21,23 @@ class ViewController: UIViewController {
         User(name: "Dude Smith", photoURL: "http://vertassets.blob.core.windows.net/image/439e18aa/439e18aa-bc29-45cd-9c91-e0b18b5b0dcd/ed_miseta.jpg", address: "789 Main St", city: "Atlanta", state: "GA", zip: 12345)
     ]
     
-    override func viewWillDisappear(animated: Bool) {
-        super.viewWillDisappear(animated)
-        title = ""
+    override func viewDidLoad() {
+        backgroundImage = UIImage(named: "bg")
+        dataSource = self
+        super.viewDidLoad()
     }
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        title = "Example"
+        let image = UIImage()
         let navBar = navigationController?.navigationBar
-        navBar?.setBackgroundImage(nil, forBarMetrics: .Default)
-        navBar?.shadowImage = nil
-    }
-    
-    @IBAction func presentCardSelectionVCAction(sender: AnyObject) {
-        let cardSelectionVC = MyCardSelectionViewController()
-        cardSelectionVC.dataSource = self
-        cardSelectionVC.backgroundImage = UIImage(named: "bg")
-        navigationController?.pushViewController(cardSelectionVC, animated: true)
+        navBar?.setBackgroundImage(image, forBarMetrics: .Default)
+        navBar?.shadowImage = image
+        reloadData()
     }
 }
 
-extension ViewController: JFCardSelectionViewControllerDataSource {
+extension UserSelectionViewController: JFCardSelectionViewControllerDataSource {
     
     func numberOfCardsForCardSelectionViewController(cardSelectionViewController: JFCardSelectionViewController) -> Int {
         return cards.count
@@ -52,17 +47,6 @@ extension ViewController: JFCardSelectionViewControllerDataSource {
         return cards[indexPath.row]
     }
     
-}
-
-class MyCardSelectionViewController: JFCardSelectionViewController {
-    override func viewWillAppear(animated: Bool) {
-        super.viewWillAppear(animated)
-        let image = UIImage()
-        let navBar = navigationController?.navigationBar
-        navBar?.setBackgroundImage(image, forBarMetrics: .Default)
-        navBar?.shadowImage = image
-        reloadData()
-    }
 }
 
 

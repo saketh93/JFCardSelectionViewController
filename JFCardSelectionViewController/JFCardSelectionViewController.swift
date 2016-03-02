@@ -48,7 +48,7 @@ public class JFCardSelectionViewController: UIViewController {
     
     public override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = UIColor.blueColor()
+        view.backgroundColor = UIColor.whiteColor()
         buildBGUI()
         buildCardSelectionUI()
         buildFocusedCardUI()
@@ -120,20 +120,4 @@ extension JFCardSelectionViewController: UICollectionViewDataSource {
             focusedImageView.configureForCard(card)
         }
     }
-}
-
-extension JFCardSelectionViewController: UICollectionViewDelegateFlowLayout {
-    
-    public func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
-        return CGSize(width: 120, height: 120)
-    }
-    
-    public func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAtIndex section: Int) -> UIEdgeInsets {
-        return UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10)
-    }
-  
-    public func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAtIndex section: Int) -> CGFloat {
-        return 0
-    }
-    
 }

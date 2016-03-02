@@ -21,7 +21,18 @@ class JFCardSelectionCell: UICollectionViewCell {
         guard let _superView = _scrollView.superview else { return 0 }
         let position = _superView.convertPoint(self.center, fromView: scrollView)
         let superViewCenterX = CGRectGetMidX(_superView.frame)
-        return (position.x - superViewCenterX) / superViewCenterX
+        return ((position.x - superViewCenterX) / superViewCenterX) / 1.5
+    }
+    private var centerY: CGFloat {
+        let height = CGRectGetHeight(scrollView.frame)
+        var y = rotation
+        if rotation < 0.0 {
+            y *= -1
+            y *= (rotation * -1)
+        } else {
+            y *= rotation
+        }
+        return ((y * height) / 2) + (CGRectGetHeight(self.frame) / 1.5)
     }
     
     deinit {
@@ -42,20 +53,6 @@ class JFCardSelectionCell: UICollectionViewCell {
         }
         imageView.image = nil
         label.text = nil
-        
-        let height = CGRectGetHeight(scrollView.frame)
-        var y = rotation
-        if rotation < 0.0 {
-            y *= -1
-            y *= (rotation * -1)
-            y *= (rotation * -1)
-            y *= (rotation * -1)
-        } else {
-            y *= rotation
-            y *= rotation
-            y *= rotation
-        }
-        center.y = ((y * height) / 2) + (CGRectGetHeight(self.frame) / 2)
     }
     
     func configureForCard(card: CardPresentable, inScrollView scrollView: UIScrollView) {
@@ -67,20 +64,7 @@ class JFCardSelectionCell: UICollectionViewCell {
         imageView.loadImageAtURL(card.imageURLString, withDefaultImage: nil)
         
         self.transform = CGAffineTransformMakeRotation(rotation)
-        
-        let height = CGRectGetHeight(scrollView.frame)
-        var y = rotation
-        if rotation < 0.0 {
-            y *= -1
-            y *= (rotation * -1)
-            y *= (rotation * -1)
-            y *= (rotation * -1)
-        } else {
-            y *= rotation
-            y *= rotation
-            y *= rotation
-        }
-        center.y = ((y * height) / 2) + (CGRectGetHeight(self.frame) / 2)
+        center.y = centerY
         
         let shadow = NSShadow()
         shadow.shadowOffset = CGSize(width: 0, height: 0)
@@ -102,18 +86,7 @@ class JFCardSelectionCell: UICollectionViewCell {
 //        if (card?.titleText ?? "") == "Avery Smith" {
 
         self.transform = CGAffineTransformMakeRotation(rotation)
-        
-        let height = CGRectGetHeight(scrollView.frame)
-        var y = rotation
-        if rotation < 0.0 {
-            y *= -1
-            y *= (((rotation * -1) * height) / 2)
-            
-        } else {
-            y *= ((rotation * height) / 2)
-        }
-        
-        center.y = y + (CGRectGetHeight(self.frame) / 2)
+        center.y = centerY
             
 //        }
     }

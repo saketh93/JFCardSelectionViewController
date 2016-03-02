@@ -91,7 +91,7 @@ public class JFCardSelectionViewController: UIViewController {
         focusedImageView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(focusedImageView)
         let views = ["focusedImageView": focusedImageView, "collectionView": collectionView]
-        view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-(74)-[focusedImageView]-(40)-[collectionView]", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: views))
+        view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-(74)-[focusedImageView]-(20)-[collectionView]", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: views))
         view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|-(80)-[focusedImageView]-(80)-|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: views))
     }
     

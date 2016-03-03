@@ -68,6 +68,10 @@ extension User: CardPresentable {
         return photoURL
     }
     
+    var placeholderImage: UIImage? {
+        return UIImage(named: "default")
+    }
+    
     var titleText: String {
         return name
     }
@@ -76,15 +80,16 @@ extension User: CardPresentable {
         return "\(address) \n\(city), \(state) \(zip)"
     }
     
-    var actions: [CardAction]? {
-        return [
-            CardAction(title: "action one") {
-                print("Action One Fired!")
-            },
-            CardAction(title: "action two") {
-                print("Action Two Fired!")
-            }
-        ]
+    var actionOne: CardAction? {
+        return CardAction(title: "Call") {
+            print("Call Action Fired!")
+        }
+    }
+    
+    var actionTwo: CardAction? {
+        return CardAction(title: "Email") {
+            print("Email Action Fired!")
+        }
     }
     
 }

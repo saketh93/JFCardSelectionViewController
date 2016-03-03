@@ -21,7 +21,7 @@ class JFCardSelectionCell: UICollectionViewCell {
         guard let _superView = _scrollView.superview else { return 0 }
         let position = _superView.convertPoint(self.center, fromView: scrollView)
         let superViewCenterX = CGRectGetMidX(_superView.frame)
-        return ((position.x - superViewCenterX) / superViewCenterX) / 1.5
+        return ((position.x - superViewCenterX) / superViewCenterX) / 1.2
     }
     private var centerY: CGFloat {
         let height = CGRectGetHeight(scrollView.frame)
@@ -32,7 +32,8 @@ class JFCardSelectionCell: UICollectionViewCell {
         } else {
             y *= rotation
         }
-        return ((y * height) / 2) + (CGRectGetHeight(self.frame) / 1.5)
+        print("frame: \(self.frame)")
+        return ((y * height) / 2) + (height / 3)
     }
     
     deinit {
@@ -61,19 +62,12 @@ class JFCardSelectionCell: UICollectionViewCell {
         self.scrollView = scrollView
         self.scrollView.addObserver(self, forKeyPath: "contentOffset", options: .New, context: nil)
         
-        imageView.loadImageAtURL(card.imageURLString, withDefaultImage: nil)
+        imageView.loadImageAtURL(card.imageURLString, withDefaultImage: card.placeholderImage)
         
         self.transform = CGAffineTransformMakeRotation(rotation)
         center.y = centerY
         
-        let shadow = NSShadow()
-        shadow.shadowOffset = CGSize(width: 0, height: 0)
-        shadow.shadowBlurRadius = 1
-        shadow.shadowColor = UIColor.blackColor().colorWithAlphaComponent(0.5)
-        let attributes: [String: AnyObject] = [
-            NSShadowAttributeName: shadow
-        ]
-        label.attributedText = NSAttributedString(string: card.titleText, attributes: attributes)
+        label.attributedText = NSAttributedString(string: card.titleText, attributes: Shadow.labelAttributesSoft)
     }
     
     private var previousContentOffsetX: CGFloat = 0
@@ -84,10 +78,8 @@ class JFCardSelectionCell: UICollectionViewCell {
     override func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<Void>) {
         
 //        if (card?.titleText ?? "") == "Avery Smith" {
-
         self.transform = CGAffineTransformMakeRotation(rotation)
         center.y = centerY
-            
 //        }
     }
 

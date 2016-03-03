@@ -20,9 +20,11 @@ public struct CardAction {
 
 public protocol CardPresentable {
     var imageURLString: String { get }
+    var placeholderImage: UIImage? { get }
     var titleText: String { get }
     var detailText: String { get }
-    var actions: [CardAction]? { get }
+    var actionOne: CardAction? { get }
+    var actionTwo: CardAction? { get }
 }
 
 public protocol JFCardSelectionViewControllerDelegate {
@@ -42,9 +44,10 @@ public class JFCardSelectionViewController: UIViewController {
     public var dataSource: JFCardSelectionViewControllerDataSource?
     
     private var bgImageView = UIImageView()
-    private var focusedImageView = JFFocusedCardView.loadFromNib()
+    private var focusedView = JFFocusedCardView.loadFromNib()
     private let collectionView = UICollectionView(frame: CGRectZero, collectionViewLayout: JFCardSelectionViewFlowLayout())
     private let blurEffectView = UIVisualEffectView(effect: UIBlurEffect(style: .ExtraLight))
+    private let bottomCircleView = UIView()
     
     public override func viewDidLoad() {
         super.viewDidLoad()
@@ -85,19 +88,35 @@ public class JFCardSelectionViewController: UIViewController {
         let views = ["collectionView": collectionView]
         view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:[collectionView(==height)]|", options: NSLayoutFormatOptions(rawValue: 0), metrics: metrics, views: views))
         view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|[collectionView]|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: views))
+        view.layoutIfNeeded()
     }
     
     private func buildFocusedCardUI() {
-        focusedImageView.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(focusedImageView)
-        let views = ["focusedImageView": focusedImageView, "collectionView": collectionView]
+        focusedView.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(focusedView)
+        let views = ["focusedImageView": focusedView, "collectionView": collectionView]
         view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-(74)-[focusedImageView]-(20)-[collectionView]", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: views))
         view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|-(80)-[focusedImageView]-(80)-|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: views))
+        view.layoutIfNeeded()
+        
+//        bottomCircleView.translatesAutoresizingMaskIntoConstraints = false
+        bottomCircleView.backgroundColor = UIColor.whiteColor().colorWithAlphaComponent(0.5)
+        view.addSubview(bottomCircleView)
+        let height = CGRectGetWidth(view.frame)
+        let y = CGRectGetMidY(collectionView.frame) + 30
+        bottomCircleView.frame = CGRect(x: 0, y: y, width: height, height: height)
+        bottomCircleView.makeRound()
     }
     
 }
 
 extension JFCardSelectionViewController: UICollectionViewDelegate {
+    
+    public func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+        guard let _dataSource = dataSource else { return }
+        let card = _dataSource.cardSelectionViewController(self, cardForItemAtIndexPath: indexPath)
+        focusedView.configureForCard(card)
+    }
     
 }
 
@@ -116,8 +135,8 @@ extension JFCardSelectionViewController: UICollectionViewDataSource {
         guard let _dataSource = dataSource else { return }
         let card = _dataSource.cardSelectionViewController(self, cardForItemAtIndexPath: indexPath)
         cell.configureForCard(card, inScrollView: collectionView)
-        if (collectionView.indexPathsForSelectedItems()?.count ?? 0) == 0 && indexPath.section == 0 && indexPath.row == 0 {
-            focusedImageView.configureForCard(card)
+        if (collectionView.indexPathsForSelectedItems()?.count ?? 0) == 0 && indexPath.section == 0 && indexPath.row == 0 && focusedView.card == nil {
+            focusedView.configureForCard(card)
         }
     }
 }

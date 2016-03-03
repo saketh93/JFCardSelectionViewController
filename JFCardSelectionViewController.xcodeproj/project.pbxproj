@@ -23,6 +23,7 @@
 		1935E6FD1C8645C000449C48 /* UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1935E6F31C8645C000449C48 /* UIView.swift */; };
 		1935E6FF1C86526D00449C48 /* JFFocusedCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1935E6FE1C86526D00449C48 /* JFFocusedCardView.swift */; };
 		1935E7011C86527D00449C48 /* JFFocusedCardView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1935E7001C86527D00449C48 /* JFFocusedCardView.xib */; };
+		1AB955CB1C88899F00A8E776 /* Shadow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AB955CA1C88899F00A8E776 /* Shadow.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -55,6 +56,7 @@
 		1935E6F31C8645C000449C48 /* UIView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIView.swift; sourceTree = "<group>"; };
 		1935E6FE1C86526D00449C48 /* JFFocusedCardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JFFocusedCardView.swift; sourceTree = "<group>"; };
 		1935E7001C86527D00449C48 /* JFFocusedCardView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = JFFocusedCardView.xib; sourceTree = "<group>"; };
+		1AB955CA1C88899F00A8E776 /* Shadow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Shadow.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -105,6 +107,7 @@
 				1935E6E51C862F3300449C48 /* JFCardSelectionViewFlowLayout.swift */,
 				1935E6FE1C86526D00449C48 /* JFFocusedCardView.swift */,
 				1935E7001C86527D00449C48 /* JFFocusedCardView.xib */,
+				1AB955CA1C88899F00A8E776 /* Shadow.swift */,
 			);
 			path = JFCardSelectionViewController;
 			sourceTree = "<group>";
@@ -259,6 +262,7 @@
 				1935E6DE1C86194100449C48 /* JFCardSelectionViewController.swift in Sources */,
 				1935E6FC1C8645C000449C48 /* UIImageView.swift in Sources */,
 				1935E6F81C8645C000449C48 /* String.swift in Sources */,
+				1AB955CB1C88899F00A8E776 /* Shadow.swift in Sources */,
 				1935E6FF1C86526D00449C48 /* JFFocusedCardView.swift in Sources */,
 				1935E6F91C8645C000449C48 /* UIColor.swift in Sources */,
 				1935E6F51C8645C000449C48 /* NSDate.swift in Sources */,

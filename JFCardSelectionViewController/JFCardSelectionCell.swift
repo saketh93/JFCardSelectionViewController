@@ -32,8 +32,7 @@ class JFCardSelectionCell: UICollectionViewCell {
         } else {
             y *= rotation
         }
-        print("frame: \(self.frame)")
-        return ((y * height) / 2) + (height / 3)
+        return ((y * height) / 2) + (height / 2.5)
     }
     
     deinit {

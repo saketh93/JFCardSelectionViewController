@@ -11,7 +11,9 @@ import UIKit
 class JFFocusedCardView: UIView {
 
     var card: CardPresentable?
+    private var showingImageViewTwo = false
     @IBOutlet var imageView: UIImageView!
+    @IBOutlet weak var imageViewTwo: UIImageView!
     @IBOutlet var titleLabel: UILabel!
     @IBOutlet var subTitleLabelOne: UILabel!
     @IBOutlet var subTitleLabelTwo: UILabel!
@@ -20,10 +22,23 @@ class JFFocusedCardView: UIView {
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        imageViewTwo.alpha = 0
+        imageViewTwo.clipsToBounds = true
+        imageViewTwo.layer.cornerRadius = 2
+        imageViewTwo.layer.borderColor = UIColor.whiteColor().colorWithAlphaComponent(0.4).CGColor
+        imageViewTwo.layer.borderWidth = 0.5
         imageView.clipsToBounds = true
         imageView.layer.cornerRadius = 2
+        imageView.layer.borderColor = UIColor.whiteColor().colorWithAlphaComponent(0.4).CGColor
+        imageView.layer.borderWidth = 0.5
         actionOneButton.hidden = true
+        actionOneButton.layer.cornerRadius = 2
+        actionOneButton.layer.borderColor = UIColor.whiteColor().colorWithAlphaComponent(0.5).CGColor
+        actionOneButton.layer.borderWidth = 0.5
         actionTwoButton.hidden = true
+        actionTwoButton.layer.cornerRadius = 2
+        actionTwoButton.layer.borderColor = UIColor.whiteColor().colorWithAlphaComponent(0.5).CGColor
+        actionTwoButton.layer.borderWidth = 0.5
     }
     
     func configureForCard(card: CardPresentable) {
@@ -41,11 +56,37 @@ class JFFocusedCardView: UIView {
             actionTwoButton.hidden = false
         }
         
-        imageView.loadImageAtURL(card.imageURLString, withDefaultImage: card.placeholderImage)
+        if !showingImageViewTwo {
+            imageView.loadImageAtURL(card.imageURLString, withDefaultImage: card.placeholderImage)
+            presentImageViewOne()
+        } else {
+            imageViewTwo.loadImageAtURL(card.imageURLString, withDefaultImage: card.placeholderImage)
+            presentImageViewTwo()
+        }
         
         titleLabel.attributedText = NSAttributedString(string: card.titleText, attributes: Shadow.labelAttributesSoft)
         subTitleLabelOne.attributedText = NSAttributedString(string: card.detailText, attributes: Shadow.labelAttributesSoft)
         subTitleLabelTwo.attributedText = NSAttributedString(string: card.detailText, attributes: Shadow.labelAttributesSoft)
+    }
+    
+    private func presentImageViewOne() {
+        showingImageViewTwo = !showingImageViewTwo
+        UIView.animateWithDuration(0.5, animations: { () -> Void in
+            self.imageView.alpha = 1
+            self.imageViewTwo.alpha = 0
+        }) { (finished) in
+            self.imageViewTwo.image = nil
+        }
+    }
+    
+    private func presentImageViewTwo() {
+        showingImageViewTwo = !showingImageViewTwo
+        UIView.animateWithDuration(0.5, animations: { () -> Void in
+            self.imageView.alpha = 0
+            self.imageViewTwo.alpha = 1
+        }) { (finished) in
+                self.imageView.image = nil
+        }
     }
 
     @IBAction func actionOneButtonAction(sender: AnyObject) {
@@ -57,16 +98,4 @@ class JFFocusedCardView: UIView {
     }
 }
 
-protocol UIViewLoading {}
-extension UIView : UIViewLoading {}
 
-extension UIViewLoading where Self : UIView {
-    
-    static func loadFromNib() -> Self {
-        let nibName = "\(self)".characters.split{$0 == "."}.map(String.init).last!
-        let bundle = NSBundle(forClass: Self.self)
-        let nib = UINib(nibName: nibName, bundle: bundle)
-        return nib.instantiateWithOwner(self, options: nil).first as! Self
-    }
-    
-}

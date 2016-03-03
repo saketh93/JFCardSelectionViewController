@@ -44,10 +44,13 @@ public class JFCardSelectionViewController: UIViewController {
     public var dataSource: JFCardSelectionViewControllerDataSource?
     
     private var bgImageView = UIImageView()
+    private var bgImageViewTwo = UIImageView()
+    private var showingImageViewTwo = false
     private var focusedView = JFFocusedCardView.loadFromNib()
     private let collectionView = UICollectionView(frame: CGRectZero, collectionViewLayout: JFCardSelectionViewFlowLayout())
-    private let blurEffectView = UIVisualEffectView(effect: UIBlurEffect(style: .ExtraLight))
+    private let blurEffectView = UIVisualEffectView(effect: UIBlurEffect(style: .Light))
     private let bottomCircleView = UIView()
+    private let bottomCircleOutlineView = UIView()
     
     public override func viewDidLoad() {
         super.viewDidLoad()
@@ -73,6 +76,7 @@ public class JFCardSelectionViewController: UIViewController {
             view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("\(val):|[bgImageView]|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: views))
             bgImageView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("\(val):|[blurEffectView]|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: views))
         }
+        view.layoutIfNeeded()
     }
     
     private func buildCardSelectionUI() {
@@ -99,13 +103,43 @@ public class JFCardSelectionViewController: UIViewController {
         view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|-(80)-[focusedImageView]-(80)-|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: views))
         view.layoutIfNeeded()
         
-//        bottomCircleView.translatesAutoresizingMaskIntoConstraints = false
         bottomCircleView.backgroundColor = UIColor.whiteColor().colorWithAlphaComponent(0.5)
-        view.addSubview(bottomCircleView)
-        let height = CGRectGetWidth(view.frame)
-        let y = CGRectGetMidY(collectionView.frame) + 30
+        view.insertSubview(bottomCircleView, belowSubview: collectionView)
+        var height = CGRectGetWidth(view.frame)
+        var y = CGRectGetMaxY(view.frame) - 44
         bottomCircleView.frame = CGRect(x: 0, y: y, width: height, height: height)
-        bottomCircleView.makeRound()
+        bottomCircleView.makeRoundWithBorder(width: 0.5, color: UIColor.whiteColor().colorWithAlphaComponent(0.7))
+        bottomCircleView.center.x = view.center.x
+        
+        bottomCircleOutlineView.backgroundColor = UIColor.clearColor()
+        view.insertSubview(bottomCircleOutlineView, belowSubview: bottomCircleView)
+        height += 60
+        y -= 20
+        bottomCircleOutlineView.frame = CGRect(x: 0, y: y, width: height, height: height)
+        bottomCircleOutlineView.makeRoundWithBorder(width: 2, color: UIColor.whiteColor().colorWithAlphaComponent(0.5))
+        bottomCircleOutlineView.center.x = view.center.x
+        
+        view.layoutIfNeeded()
+    }
+    
+    private func presentImageViewOne() {
+        showingImageViewTwo = !showingImageViewTwo
+        UIView.animateWithDuration(0.5, animations: { () -> Void in
+            self.bgImageView.alpha = 1
+            self.bgImageViewTwo.alpha = 0
+            }) { (finished) in
+                self.bgImageViewTwo.image = nil
+        }
+    }
+    
+    private func presentImageViewTwo() {
+        showingImageViewTwo = !showingImageViewTwo
+        UIView.animateWithDuration(0.5, animations: { () -> Void in
+            self.bgImageView.alpha = 0
+            self.bgImageViewTwo.alpha = 1
+            }) { (finished) in
+                self.bgImageView.image = nil
+        }
     }
     
 }
@@ -116,6 +150,13 @@ extension JFCardSelectionViewController: UICollectionViewDelegate {
         guard let _dataSource = dataSource else { return }
         let card = _dataSource.cardSelectionViewController(self, cardForItemAtIndexPath: indexPath)
         focusedView.configureForCard(card)
+        if !showingImageViewTwo {
+            bgImageView.loadImageAtURL(card.imageURLString, withDefaultImage: card.placeholderImage)
+            presentImageViewOne()
+        } else {
+            bgImageViewTwo.loadImageAtURL(card.imageURLString, withDefaultImage: card.placeholderImage)
+            presentImageViewTwo()
+        }
     }
     
 }

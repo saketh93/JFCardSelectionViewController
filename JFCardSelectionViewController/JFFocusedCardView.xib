@@ -11,7 +11,10 @@
             <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Ppn-TT-mln">
+                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Ppn-TT-mln" userLabel="Image View One">
+                    <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                </imageView>
+                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="oaX-cb-4Up" userLabel="Image View Two">
                     <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                 </imageView>
                 <label opaque="NO" userInteractionEnabled="NO" alpha="0.90000000000000002" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1Io-xI-akt">
@@ -43,7 +46,8 @@
                 </label>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BCr-4C-IAL">
                     <rect key="frame" x="305" y="562" width="285" height="30"/>
-                    <color key="backgroundColor" white="1" alpha="0.25" colorSpace="calibratedWhite"/>
+                    <color key="backgroundColor" white="1" alpha="0.33246662151702788" colorSpace="calibratedWhite"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
                     <state key="normal" title="Button">
                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
@@ -53,10 +57,11 @@
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9fD-D9-bWv">
                     <rect key="frame" x="10" y="562" width="285" height="30"/>
-                    <color key="backgroundColor" white="1" alpha="0.25070043103448275" colorSpace="calibratedWhite"/>
+                    <color key="backgroundColor" white="1" alpha="0.32878915007473042" colorSpace="calibratedWhite"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="30" id="GRo-nc-rgU"/>
                     </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
                     <state key="normal" title="Button">
                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
@@ -77,12 +82,16 @@
                 <constraint firstItem="7zL-Vi-2Xu" firstAttribute="top" secondItem="wuj-89-CJz" secondAttribute="bottom" constant="-4" id="Ocw-qR-RUp"/>
                 <constraint firstItem="wuj-89-CJz" firstAttribute="top" secondItem="1Io-xI-akt" secondAttribute="bottom" constant="-6" id="QEp-zl-J0v"/>
                 <constraint firstItem="Ppn-TT-mln" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="QhC-YV-MyL"/>
+                <constraint firstAttribute="trailing" secondItem="oaX-cb-4Up" secondAttribute="trailing" id="TMo-po-MKz"/>
                 <constraint firstAttribute="trailing" secondItem="wuj-89-CJz" secondAttribute="trailing" constant="10" id="X1s-OJ-sKK"/>
                 <constraint firstAttribute="trailing" secondItem="7zL-Vi-2Xu" secondAttribute="trailing" constant="10" id="gKd-6i-EWC"/>
                 <constraint firstAttribute="bottom" secondItem="9fD-D9-bWv" secondAttribute="bottom" constant="8" id="gtA-8T-6Ct"/>
+                <constraint firstAttribute="bottom" secondItem="oaX-cb-4Up" secondAttribute="bottom" id="h8z-Ni-gq9"/>
+                <constraint firstItem="oaX-cb-4Up" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="hhP-F7-kVe"/>
                 <constraint firstItem="1Io-xI-akt" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="10" id="hiv-OF-cgN"/>
                 <constraint firstAttribute="trailing" secondItem="1Io-xI-akt" secondAttribute="trailing" constant="10" id="kRf-uk-NlT"/>
                 <constraint firstAttribute="bottom" secondItem="7zL-Vi-2Xu" secondAttribute="bottom" constant="40" id="m0V-ol-HSy"/>
+                <constraint firstItem="oaX-cb-4Up" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="ma6-IP-sZb"/>
                 <constraint firstAttribute="trailing" secondItem="BCr-4C-IAL" secondAttribute="trailing" constant="10" id="t0r-4b-vHo"/>
                 <constraint firstItem="7zL-Vi-2Xu" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="10" id="twl-ya-ZGa"/>
                 <constraint firstItem="Ppn-TT-mln" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="unc-2O-5NR"/>
@@ -92,6 +101,7 @@
                 <outlet property="actionOneButton" destination="9fD-D9-bWv" id="PgL-hp-tE5"/>
                 <outlet property="actionTwoButton" destination="BCr-4C-IAL" id="EAs-L8-raf"/>
                 <outlet property="imageView" destination="Ppn-TT-mln" id="GKQ-Ga-pTD"/>
+                <outlet property="imageViewTwo" destination="oaX-cb-4Up" id="GNd-nN-SqK"/>
                 <outlet property="subTitleLabelOne" destination="wuj-89-CJz" id="FbV-4n-IjS"/>
                 <outlet property="subTitleLabelTwo" destination="7zL-Vi-2Xu" id="Y7S-AJ-mb9"/>
                 <outlet property="titleLabel" destination="1Io-xI-akt" id="5R2-a4-awl"/>

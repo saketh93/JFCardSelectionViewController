@@ -23,6 +23,7 @@
 		1935E6FD1C8645C000449C48 /* UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1935E6F31C8645C000449C48 /* UIView.swift */; };
 		1935E6FF1C86526D00449C48 /* JFFocusedCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1935E6FE1C86526D00449C48 /* JFFocusedCardView.swift */; };
 		1935E7011C86527D00449C48 /* JFFocusedCardView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1935E7001C86527D00449C48 /* JFFocusedCardView.xib */; };
+		19AE5E521C8A2620005295EA /* AccessoryIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19AE5E511C8A2620005295EA /* AccessoryIndicator.swift */; };
 		1AB955CB1C88899F00A8E776 /* Shadow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AB955CA1C88899F00A8E776 /* Shadow.swift */; };
 /* End PBXBuildFile section */
 
@@ -56,6 +57,7 @@
 		1935E6F31C8645C000449C48 /* UIView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIView.swift; sourceTree = "<group>"; };
 		1935E6FE1C86526D00449C48 /* JFFocusedCardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JFFocusedCardView.swift; sourceTree = "<group>"; };
 		1935E7001C86527D00449C48 /* JFFocusedCardView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = JFFocusedCardView.xib; sourceTree = "<group>"; };
+		19AE5E511C8A2620005295EA /* AccessoryIndicator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccessoryIndicator.swift; sourceTree = "<group>"; };
 		1AB955CA1C88899F00A8E776 /* Shadow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Shadow.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -108,6 +110,7 @@
 				1935E6FE1C86526D00449C48 /* JFFocusedCardView.swift */,
 				1935E7001C86527D00449C48 /* JFFocusedCardView.xib */,
 				1AB955CA1C88899F00A8E776 /* Shadow.swift */,
+				19AE5E511C8A2620005295EA /* AccessoryIndicator.swift */,
 			);
 			path = JFCardSelectionViewController;
 			sourceTree = "<group>";
@@ -256,6 +259,7 @@
 			files = (
 				1935E6FB1C8645C000449C48 /* UIImage.swift in Sources */,
 				1935E6FA1C8645C000449C48 /* UIDevice.swift in Sources */,
+				19AE5E521C8A2620005295EA /* AccessoryIndicator.swift in Sources */,
 				1935E6F61C8645C000449C48 /* NSURL.swift in Sources */,
 				1935E6FD1C8645C000449C48 /* UIView.swift in Sources */,
 				1935E6E31C862E3000449C48 /* JFCardSelectionCell.swift in Sources */,

@@ -22,7 +22,7 @@ class UserSelectionViewController: JFCardSelectionViewController {
     ]
     
     override func viewDidLoad() {
-        backgroundImage = UIImage(named: "bg")
+//        backgroundImage = UIImage(named: "bg")
         dataSource = self
         selectionAnimationStyle = .Slide
         super.viewDidLoad()

@@ -10,10 +10,8 @@ import UIKit
 
 class JFFocusedCardView: UIView {
 
-    var card: CardPresentable?
-    private var showingImageViewTwo = false
+    var card: CardPresentable!
     @IBOutlet var imageView: UIImageView!
-    @IBOutlet weak var imageViewTwo: UIImageView!
     @IBOutlet var titleLabel: UILabel!
     @IBOutlet var subTitleLabelOne: UILabel!
     @IBOutlet var subTitleLabelTwo: UILabel!
@@ -22,11 +20,6 @@ class JFFocusedCardView: UIView {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        imageViewTwo.alpha = 0
-        imageViewTwo.clipsToBounds = true
-        imageViewTwo.layer.cornerRadius = 2
-        imageViewTwo.layer.borderColor = UIColor.whiteColor().colorWithAlphaComponent(0.4).CGColor
-        imageViewTwo.layer.borderWidth = 0.5
         imageView.clipsToBounds = true
         imageView.layer.cornerRadius = 2
         imageView.layer.borderColor = UIColor.whiteColor().colorWithAlphaComponent(0.4).CGColor
@@ -41,60 +34,44 @@ class JFFocusedCardView: UIView {
         actionTwoButton.layer.borderWidth = 0.5
     }
     
-    func configureForCard(card: CardPresentable) {
-        self.card = card
+    func configureForCard(card: CardPresentable?) {
+        guard let _card = card else {
+            self.card = nil
+            self.imageView.image = nil
+            self.titleLabel.text = nil
+            self.subTitleLabelOne.text = nil
+            self.subTitleLabelTwo.text = nil
+            return
+        }
         
-        if let _actionOne = card.actionOne {
+        self.card = _card
+        
+        if let _actionOne = self.card.actionOne {
             let title = NSAttributedString(string: _actionOne.title, attributes: Shadow.labelAttributesMedium)
             actionOneButton.setAttributedTitle(title, forState: .Normal)
             actionOneButton.hidden = false
         }
         
-        if let _actionTwo = card.actionTwo {
+        if let _actionTwo = self.card.actionTwo {
             let title = NSAttributedString(string: _actionTwo.title, attributes: Shadow.labelAttributesMedium)
             actionTwoButton.setAttributedTitle(title, forState: .Normal)
             actionTwoButton.hidden = false
         }
         
-        if !showingImageViewTwo {
-            imageView.loadImageAtURL(card.imageURLString, withDefaultImage: card.placeholderImage)
-            presentImageViewOne()
-        } else {
-            imageViewTwo.loadImageAtURL(card.imageURLString, withDefaultImage: card.placeholderImage)
-            presentImageViewTwo()
-        }
+
+        imageView.loadImageAtURL(self.card.imageURLString, withDefaultImage: self.card.placeholderImage)
         
-        titleLabel.attributedText = NSAttributedString(string: card.titleText, attributes: Shadow.labelAttributesSoft)
-        subTitleLabelOne.attributedText = NSAttributedString(string: card.detailText, attributes: Shadow.labelAttributesSoft)
-        subTitleLabelTwo.attributedText = NSAttributedString(string: card.detailText, attributes: Shadow.labelAttributesSoft)
-    }
-    
-    private func presentImageViewOne() {
-        showingImageViewTwo = !showingImageViewTwo
-        UIView.animateWithDuration(0.5, animations: { () -> Void in
-            self.imageView.alpha = 1
-            self.imageViewTwo.alpha = 0
-        }) { (finished) in
-            self.imageViewTwo.image = nil
-        }
-    }
-    
-    private func presentImageViewTwo() {
-        showingImageViewTwo = !showingImageViewTwo
-        UIView.animateWithDuration(0.5, animations: { () -> Void in
-            self.imageView.alpha = 0
-            self.imageViewTwo.alpha = 1
-        }) { (finished) in
-                self.imageView.image = nil
-        }
+        titleLabel.attributedText = NSAttributedString(string: self.card.titleText, attributes: Shadow.labelAttributesSoft)
+        subTitleLabelOne.attributedText = NSAttributedString(string: self.card.detailText, attributes: Shadow.labelAttributesSoft)
+        subTitleLabelTwo.attributedText = NSAttributedString(string: self.card.detailText, attributes: Shadow.labelAttributesSoft)
     }
 
     @IBAction func actionOneButtonAction(sender: AnyObject) {
-        self.card?.actionOne?.action()
+        self.card.actionOne?.action()
     }
     
     @IBAction func actionTwoButtonAction(sender: AnyObject) {
-        self.card?.actionTwo?.action()
+        self.card.actionTwo?.action()
     }
 }
 

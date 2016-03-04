@@ -31,6 +31,10 @@ public protocol JFCardSelectionViewControllerDelegate {
     
 }
 
+public enum JFCardSelectionViewSelectionAnimationStyle {
+    case Fade, Slide
+}
+
 public protocol JFCardSelectionViewControllerDataSource {
     func numberOfCardsForCardSelectionViewController(cardSelectionViewController: JFCardSelectionViewController) -> Int
     func cardSelectionViewController(cardSelectionViewController: JFCardSelectionViewController, cardForItemAtIndexPath indexPath: NSIndexPath) -> CardPresentable
@@ -42,15 +46,42 @@ public class JFCardSelectionViewController: UIViewController {
     public var backgroundImage: UIImage?
     public var delegate: JFCardSelectionViewControllerDelegate?
     public var dataSource: JFCardSelectionViewControllerDataSource?
+    public var selectionAnimationStyle: JFCardSelectionViewSelectionAnimationStyle = .Fade
     
     private var bgImageView = UIImageView()
     private var bgImageViewTwo = UIImageView()
-    private var showingImageViewTwo = false
+    private var showingImageViewOne = true
     private var focusedView = JFFocusedCardView.loadFromNib()
+    private var focusedViewHConstraints = [NSLayoutConstraint]()
+    private var focusedViewTwo = JFFocusedCardView.loadFromNib()
+    private var focusedViewTwoHConstraints = [NSLayoutConstraint]()
     private let collectionView = UICollectionView(frame: CGRectZero, collectionViewLayout: JFCardSelectionViewFlowLayout())
     private let blurEffectView = UIVisualEffectView(effect: UIBlurEffect(style: .Light))
+    private let blurEffectViewTwo = UIVisualEffectView(effect: UIBlurEffect(style: .Light))
     private let bottomCircleView = UIView()
     private let bottomCircleOutlineView = UIView()
+    private var previouslySelectedIndexPath: NSIndexPath?
+    private let topSpace: CGFloat = 74
+    private let bottomSpace: CGFloat = 20
+    private let horizontalSpace: CGFloat = 80
+    private var focusedViewMetrics: [String: CGFloat] {
+        let width = CGRectGetWidth(view.frame) - (horizontalSpace * 2)
+        return [
+            "maxX": CGRectGetMaxX(view.frame),
+            "minX": CGRectGetMinX(view.frame) - (width),
+            "width": width,
+            "topSpace": topSpace,
+            "bottomSpace": bottomSpace,
+            "horizontalSpace": horizontalSpace
+        ]
+    }
+    private var focusedViewViews: [String: UIView] {
+        return [
+            "focusedView": focusedView,
+            "focusedViewTwo": focusedViewTwo,
+            "collectionView": collectionView
+        ]
+    }
     
     public override func viewDidLoad() {
         super.viewDidLoad()
@@ -71,10 +102,20 @@ public class JFCardSelectionViewController: UIViewController {
         blurEffectView.translatesAutoresizingMaskIntoConstraints = false
         bgImageView.addSubview(blurEffectView)
         view.addSubview(bgImageView)
-        let views = ["bgImageView": bgImageView, "blurEffectView": blurEffectView]
+        
+        bgImageViewTwo.image = _backgroundImage
+        bgImageViewTwo.translatesAutoresizingMaskIntoConstraints = false
+        blurEffectViewTwo.translatesAutoresizingMaskIntoConstraints = false
+        bgImageViewTwo.addSubview(blurEffectViewTwo)
+        bgImageViewTwo.alpha = 0
+        view.insertSubview(bgImageViewTwo, belowSubview: bgImageView)
+        
+        let views = ["bgImageView": bgImageView, "blurEffectView": blurEffectView, "bgImageViewTwo": bgImageViewTwo, "blurEffectViewTwo": blurEffectViewTwo]
         for val in ["V", "H"] {
             view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("\(val):|[bgImageView]|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: views))
+            view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("\(val):|[bgImageViewTwo]|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: views))
             bgImageView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("\(val):|[blurEffectView]|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: views))
+            bgImageViewTwo.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("\(val):|[blurEffectViewTwo]|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: views))
         }
         view.layoutIfNeeded()
     }
@@ -98,9 +139,18 @@ public class JFCardSelectionViewController: UIViewController {
     private func buildFocusedCardUI() {
         focusedView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(focusedView)
-        let views = ["focusedImageView": focusedView, "collectionView": collectionView]
-        view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-(74)-[focusedImageView]-(20)-[collectionView]", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: views))
-        view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|-(80)-[focusedImageView]-(80)-|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: views))
+        focusedViewTwo.translatesAutoresizingMaskIntoConstraints = false
+        focusedViewTwo.hidden = true
+        view.insertSubview(focusedViewTwo, belowSubview: focusedView)
+        
+        view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-(topSpace)-[focusedView]-(bottomSpace)-[collectionView]", options: NSLayoutFormatOptions(rawValue: 0), metrics: focusedViewMetrics, views: focusedViewViews))
+        focusedViewHConstraints = NSLayoutConstraint.constraintsWithVisualFormat("H:|-(horizontalSpace)-[focusedView]-(horizontalSpace)-|", options: NSLayoutFormatOptions(rawValue: 0), metrics: focusedViewMetrics, views: focusedViewViews)
+        view.addConstraints(focusedViewHConstraints)
+        
+        view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-(topSpace)-[focusedViewTwo]-(bottomSpace)-[collectionView]", options: NSLayoutFormatOptions(rawValue: 0), metrics: focusedViewMetrics, views: focusedViewViews))
+        focusedViewTwoHConstraints = NSLayoutConstraint.constraintsWithVisualFormat("H:|-(maxX)-[focusedViewTwo]", options: NSLayoutFormatOptions(rawValue: 0), metrics: focusedViewMetrics, views: focusedViewViews)
+        view.addConstraints(focusedViewTwoHConstraints)
+        
         view.layoutIfNeeded()
         
         bottomCircleView.backgroundColor = UIColor.whiteColor().colorWithAlphaComponent(0.5)
@@ -113,7 +163,7 @@ public class JFCardSelectionViewController: UIViewController {
         
         bottomCircleOutlineView.backgroundColor = UIColor.clearColor()
         view.insertSubview(bottomCircleOutlineView, belowSubview: bottomCircleView)
-        height += 60
+        height += 40
         y -= 20
         bottomCircleOutlineView.frame = CGRect(x: 0, y: y, width: height, height: height)
         bottomCircleOutlineView.makeRoundWithBorder(width: 2, color: UIColor.whiteColor().colorWithAlphaComponent(0.5))
@@ -122,23 +172,108 @@ public class JFCardSelectionViewController: UIViewController {
         view.layoutIfNeeded()
     }
     
-    private func presentImageViewOne() {
-        showingImageViewTwo = !showingImageViewTwo
+    private func updateUIForCard(card: CardPresentable) {
+        if !showingImageViewOne {
+            bgImageView.loadImageAtURL(card.imageURLString, withDefaultImage: card.placeholderImage)
+            focusedView.configureForCard(card)
+        } else {
+            bgImageViewTwo.loadImageAtURL(card.imageURLString, withDefaultImage: card.placeholderImage)
+            focusedViewTwo.configureForCard(card)
+        }
+        
+        switch selectionAnimationStyle {
+        case .Fade:
+            fade()
+        case .Slide:
+            slide()
+        }
+        
+        showingImageViewOne = !showingImageViewOne
+    }
+    
+    private func fade() {
         UIView.animateWithDuration(0.5, animations: { () -> Void in
-            self.bgImageView.alpha = 1
-            self.bgImageViewTwo.alpha = 0
-            }) { (finished) in
+            self.bgImageView.alpha = (self.showingImageViewOne) ? 0 : 1
+            self.focusedView.alpha = (self.showingImageViewOne) ? 0 : 1
+            self.bgImageViewTwo.alpha = (self.showingImageViewOne) ? 1 : 0
+            self.focusedViewTwo.alpha = (self.showingImageViewOne) ? 1 : 0
+        }) { finished in
+            if self.showingImageViewOne {
                 self.bgImageViewTwo.image = nil
+                self.focusedViewTwo.configureForCard(nil)
+            } else {
+                self.bgImageView.image = nil
+                self.focusedView.configureForCard(nil)
+            }
         }
     }
     
-    private func presentImageViewTwo() {
-        showingImageViewTwo = !showingImageViewTwo
-        UIView.animateWithDuration(0.5, animations: { () -> Void in
-            self.bgImageView.alpha = 0
-            self.bgImageViewTwo.alpha = 1
-            }) { (finished) in
+    private func slide() {
+        var scrollLeft = true
+        guard let indexPath = collectionView.indexPathsForSelectedItems()?.first else { return }
+        if let _previousIndexPath = previouslySelectedIndexPath {
+            scrollLeft = indexPath.row > _previousIndexPath.row
+        }
+        
+        if showingImageViewOne {
+            focusedViewTwo.hidden = true
+            view.removeConstraints(focusedViewTwoHConstraints)
+            if scrollLeft {
+                focusedViewTwoHConstraints = NSLayoutConstraint.constraintsWithVisualFormat("H:|-(maxX)-[focusedViewTwo(==width)]", options: NSLayoutFormatOptions(rawValue: 0), metrics: focusedViewMetrics, views: focusedViewViews)
+            } else {
+                focusedViewTwoHConstraints = NSLayoutConstraint.constraintsWithVisualFormat("H:|-(minX)-[focusedViewTwo(==width)]", options: NSLayoutFormatOptions(rawValue: 0), metrics: focusedViewMetrics, views: focusedViewViews)
+            }
+            view.addConstraints(focusedViewTwoHConstraints)
+            view.layoutIfNeeded() // Moves views into starting position
+            focusedViewTwo.hidden = false
+            
+            view.removeConstraints(focusedViewHConstraints)
+            view.removeConstraints(focusedViewTwoHConstraints)
+            focusedViewTwoHConstraints = NSLayoutConstraint.constraintsWithVisualFormat("H:|-(horizontalSpace)-[focusedViewTwo]-(horizontalSpace)-|", options: NSLayoutFormatOptions(rawValue: 0), metrics: focusedViewMetrics, views: focusedViewViews)
+            if scrollLeft {
+                focusedViewHConstraints = NSLayoutConstraint.constraintsWithVisualFormat("H:|-(minX)-[focusedView(==width)]", options: NSLayoutFormatOptions(rawValue: 0), metrics: focusedViewMetrics, views: focusedViewViews)
+            } else {
+                focusedViewHConstraints = NSLayoutConstraint.constraintsWithVisualFormat("H:|-(maxX)-[focusedView(==width)]", options: NSLayoutFormatOptions(rawValue: 0), metrics: focusedViewMetrics, views: focusedViewViews)
+            }
+            view.addConstraints(focusedViewHConstraints)
+            view.addConstraints(focusedViewTwoHConstraints)
+        } else {
+            focusedView.hidden = true
+            view.removeConstraints(focusedViewHConstraints)
+            if scrollLeft {
+                focusedViewHConstraints = NSLayoutConstraint.constraintsWithVisualFormat("H:|-(maxX)-[focusedView(==width)]", options: NSLayoutFormatOptions(rawValue: 0), metrics: focusedViewMetrics, views: focusedViewViews)
+            } else {
+                focusedViewHConstraints = NSLayoutConstraint.constraintsWithVisualFormat("H:|-(minX)-[focusedView(==width)]", options: NSLayoutFormatOptions(rawValue: 0), metrics: focusedViewMetrics, views: focusedViewViews)
+            }
+            view.addConstraints(focusedViewHConstraints)
+            view.layoutIfNeeded() // Moves views into starting position
+            focusedView.hidden = false
+            
+            view.removeConstraints(focusedViewHConstraints)
+            view.removeConstraints(focusedViewTwoHConstraints)
+            focusedViewHConstraints = NSLayoutConstraint.constraintsWithVisualFormat("H:|-(horizontalSpace)-[focusedView]-(horizontalSpace)-|", options: NSLayoutFormatOptions(rawValue: 0), metrics: focusedViewMetrics, views: focusedViewViews)
+            if scrollLeft {
+                focusedViewTwoHConstraints = NSLayoutConstraint.constraintsWithVisualFormat("H:|-(minX)-[focusedViewTwo(==width)]", options: NSLayoutFormatOptions(rawValue: 0), metrics: focusedViewMetrics, views: focusedViewViews)
+            } else {
+                focusedViewTwoHConstraints = NSLayoutConstraint.constraintsWithVisualFormat("H:|-(maxX)-[focusedViewTwo(==width)]", options: NSLayoutFormatOptions(rawValue: 0), metrics: focusedViewMetrics, views: focusedViewViews)
+            }
+            view.addConstraints(focusedViewHConstraints)
+            view.addConstraints(focusedViewTwoHConstraints)
+        }
+        
+        // Animates views into final position
+        UIView.animateWithDuration(1.0, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0.6, options: .CurveEaseInOut, animations: { () -> Void in
+            self.view.layoutIfNeeded()
+            self.bgImageView.alpha    = CGFloat(!self.showingImageViewOne)
+            self.bgImageViewTwo.alpha = CGFloat(self.showingImageViewOne)
+        }) { finished in
+            if self.showingImageViewOne {
+                self.bgImageViewTwo.image = nil
+                self.focusedViewTwo.configureForCard(nil)
+            } else {
                 self.bgImageView.image = nil
+                self.focusedView.configureForCard(nil)
+            }
         }
     }
     
@@ -149,14 +284,8 @@ extension JFCardSelectionViewController: UICollectionViewDelegate {
     public func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
         guard let _dataSource = dataSource else { return }
         let card = _dataSource.cardSelectionViewController(self, cardForItemAtIndexPath: indexPath)
-        focusedView.configureForCard(card)
-        if !showingImageViewTwo {
-            bgImageView.loadImageAtURL(card.imageURLString, withDefaultImage: card.placeholderImage)
-            presentImageViewOne()
-        } else {
-            bgImageViewTwo.loadImageAtURL(card.imageURLString, withDefaultImage: card.placeholderImage)
-            presentImageViewTwo()
-        }
+        updateUIForCard(card)
+        previouslySelectedIndexPath = indexPath
     }
     
 }

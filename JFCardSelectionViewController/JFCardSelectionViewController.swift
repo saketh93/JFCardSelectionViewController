@@ -146,7 +146,6 @@ public class JFCardSelectionViewController: UIViewController {
         focusedView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(focusedView)
         focusedViewTwo.translatesAutoresizingMaskIntoConstraints = false
-        focusedViewTwo.hidden = true
         view.insertSubview(focusedViewTwo, belowSubview: focusedView)
         
         view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-(topSpace)-[focusedView]-(bottomSpace)-[collectionView]", options: NSLayoutFormatOptions(rawValue: 0), metrics: focusedViewMetrics, views: focusedViewViews))
@@ -154,8 +153,17 @@ public class JFCardSelectionViewController: UIViewController {
         view.addConstraints(focusedViewHConstraints)
         
         view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-(topSpace)-[focusedViewTwo]-(bottomSpace)-[collectionView]", options: NSLayoutFormatOptions(rawValue: 0), metrics: focusedViewMetrics, views: focusedViewViews))
-        focusedViewTwoHConstraints = NSLayoutConstraint.constraintsWithVisualFormat("H:|-(maxX)-[focusedViewTwo]", options: NSLayoutFormatOptions(rawValue: 0), metrics: focusedViewMetrics, views: focusedViewViews)
-        view.addConstraints(focusedViewTwoHConstraints)
+        
+        switch selectionAnimationStyle {
+        case .Fade:
+            focusedViewTwo.alpha = 0
+            focusedViewTwoHConstraints = NSLayoutConstraint.constraintsWithVisualFormat("H:|-(horizontalSpace)-[focusedViewTwo]-(horizontalSpace)-|", options: NSLayoutFormatOptions(rawValue: 0), metrics: focusedViewMetrics, views: focusedViewViews)
+            view.addConstraints(focusedViewTwoHConstraints)
+        case .Slide:
+            focusedViewTwo.hidden = true
+            focusedViewTwoHConstraints = NSLayoutConstraint.constraintsWithVisualFormat("H:|-(maxX)-[focusedViewTwo]", options: NSLayoutFormatOptions(rawValue: 0), metrics: focusedViewMetrics, views: focusedViewViews)
+            view.addConstraints(focusedViewTwoHConstraints)
+        }
         
         view.layoutIfNeeded()
         
@@ -196,6 +204,7 @@ public class JFCardSelectionViewController: UIViewController {
     }
     
     private func updateUIForCard(card: CardPresentable, atIndexPath indexPath: NSIndexPath) {
+        collectionView.scrollToItemAtIndexPath(indexPath, atScrollPosition: .CenteredHorizontally, animated: true)
         if !showingImageViewOne {
             if backgroundImage == nil {
                 bgImageView.loadImageAtURL(card.imageURLString, withDefaultImage: card.placeholderImage)
@@ -251,11 +260,11 @@ public class JFCardSelectionViewController: UIViewController {
     private func fade() {
         UIView.animateWithDuration(0.5, animations: { () -> Void in
             if self.backgroundImage == nil {
-                self.bgImageView.alpha = (self.showingImageViewOne) ? 0 : 1
-                self.bgImageViewTwo.alpha = (self.showingImageViewOne) ? 1 : 0
+                self.bgImageView.alpha = CGFloat(!self.showingImageViewOne)
+                self.bgImageViewTwo.alpha = CGFloat(self.showingImageViewOne)
             }
-            self.focusedView.alpha = (self.showingImageViewOne) ? 0 : 1
-            self.focusedViewTwo.alpha = (self.showingImageViewOne) ? 1 : 0
+            self.focusedView.alpha = CGFloat(!self.showingImageViewOne)
+            self.focusedViewTwo.alpha = CGFloat(self.showingImageViewOne)
         }) { finished in
             self.finishAnimations()
         }
@@ -276,7 +285,49 @@ public class JFCardSelectionViewController: UIViewController {
     }
     
     private func shake() {
-        //TODO: Implement a shake for the focusedView & focusedViewTwo for when the user does something like selects the currenlty selected Card.
+        var startX: CGFloat
+        if self.showingImageViewOne {
+            startX = self.focusedView.center.x
+        } else {
+            startX = self.focusedViewTwo.center.x
+        }
+        UIView.animateKeyframesWithDuration(0.5, delay: 0, options: .CalculationModeLinear, animations: { () -> Void in
+            
+            UIView.addKeyframeWithRelativeStartTime(0, relativeDuration: 0.125) {
+                if self.showingImageViewOne {
+                    self.focusedView.center.x += 10
+                } else {
+                    self.focusedViewTwo.center.x += 10
+                }
+            }
+            
+            UIView.addKeyframeWithRelativeStartTime(0.125, relativeDuration: 0.125) {
+                if self.showingImageViewOne {
+                    self.focusedView.center.x -= 10
+                } else {
+                    self.focusedViewTwo.center.x -= 10
+                }
+            }
+            
+            UIView.addKeyframeWithRelativeStartTime(0.25, relativeDuration: 0.125) {
+                if self.showingImageViewOne {
+                    self.focusedView.center.x -= 10
+                } else {
+                    self.focusedViewTwo.center.x -= 10
+                }
+            }
+            
+            UIView.addKeyframeWithRelativeStartTime(0.375, relativeDuration: 0.125) {
+                if self.showingImageViewOne {
+                    self.focusedView.center.x = startX
+                } else {
+                    self.focusedViewTwo.center.x = startX
+                }
+            }
+            
+        }) { (finished) -> Void in
+                
+        }
     }
     
     private func slideToIndexPath(indexPath: NSIndexPath) {
@@ -333,7 +384,7 @@ public class JFCardSelectionViewController: UIViewController {
         }
         
         // Animates views into final position
-        UIView.animateWithDuration(0.6, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0.8, options: .CurveEaseInOut, animations: { () -> Void in
+        UIView.animateWithDuration(0.8, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0.9, options: .CurveEaseInOut, animations: { () -> Void in
             self.view.layoutIfNeeded()
             if self.backgroundImage == nil {
                 self.bgImageView.alpha    = CGFloat(!self.showingImageViewOne)
@@ -379,6 +430,7 @@ extension JFCardSelectionViewController: UICollectionViewDataSource {
         cell.configureForCard(card, inScrollView: collectionView)
         if (collectionView.indexPathsForSelectedItems()?.count ?? 0) == 0 && indexPath.section == 0 && indexPath.row == 0 && focusedView.card == nil {
             focusedView.configureForCard(card)
+            previouslySelectedIndexPath = indexPath
         }
     }
 }

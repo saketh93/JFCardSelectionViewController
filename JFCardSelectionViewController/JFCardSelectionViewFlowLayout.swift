@@ -16,7 +16,11 @@ class JFCardSelectionViewFlowLayout: UICollectionViewFlowLayout {
         minimumLineSpacing = -10
         itemSize = CGSize(width: 100, height: 110)
         minimumInteritemSpacing = 1000
-        sectionInset = UIEdgeInsets(top: 0, left: 8, bottom: 0, right: 8)
+        let midX = CGRectGetMidX(UIScreen.mainScreen().bounds)
+        let halfItemWidth = itemSize.width / 2
+        let left = midX - halfItemWidth
+        let right = left
+        sectionInset = UIEdgeInsets(top: 0, left: left, bottom: 0, right: right)
     }
 
     required init?(coder aDecoder: NSCoder) {

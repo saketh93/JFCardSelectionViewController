@@ -21,7 +21,7 @@ class JFCardSelectionCell: UICollectionViewCell {
         guard let _superView = _scrollView.superview else { return 0 }
         let position = _superView.convertPoint(self.center, fromView: scrollView)
         let superViewCenterX = CGRectGetMidX(_superView.frame)
-        return ((position.x - superViewCenterX) / superViewCenterX) / 1.2
+        return ((position.x - superViewCenterX) / superViewCenterX) / 1.3
     }
     private var centerY: CGFloat {
         let height = CGRectGetHeight(scrollView.frame)
@@ -32,7 +32,7 @@ class JFCardSelectionCell: UICollectionViewCell {
         } else {
             y *= rotation
         }
-        return ((y * height) / 2) + (height / 2.5)
+        return ((y * height) / 1.8) + (height / 2.5)
     }
     
     deinit {
@@ -67,11 +67,6 @@ class JFCardSelectionCell: UICollectionViewCell {
         center.y = centerY
         
         label.attributedText = NSAttributedString(string: card.titleText, attributes: Shadow.labelAttributesSoft)
-    }
-    
-    private var previousContentOffsetX: CGFloat = 0
-    private enum ScrollDirection {
-        case None, Left, Right
     }
     
     override func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<Void>) {

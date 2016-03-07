@@ -14,7 +14,9 @@ class JFCardSelectionViewFlowLayout: UICollectionViewFlowLayout {
         super.init()
         scrollDirection = .Horizontal
         minimumLineSpacing = -10
-        itemSize = CGSize(width: 100, height: 110)
+        let w = CGRectGetWidth(UIScreen.mainScreen().bounds) / 4
+        let h = CGRectGetHeight(UIScreen.mainScreen().bounds) / 6
+        itemSize = CGSize(width: w, height: h)
         minimumInteritemSpacing = 1000
         let midX = CGRectGetMidX(UIScreen.mainScreen().bounds)
         let halfItemWidth = itemSize.width / 2

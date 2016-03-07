@@ -99,6 +99,10 @@ public class JFCardSelectionViewController: UIViewController {
         }
     }
     
+    public override func shouldAutorotate() -> Bool {
+        return false
+    }
+    
     public func reloadData() {
         collectionView.reloadData()
     }
@@ -135,11 +139,56 @@ public class JFCardSelectionViewController: UIViewController {
         collectionView.backgroundColor = UIColor.clearColor()
         view.addSubview(collectionView)
         let height = CGRectGetHeight(UIScreen.mainScreen().bounds) / 3
-        let metrics = ["height": height]
+        var metrics = ["height": height]
         let views = ["collectionView": collectionView]
         view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:[collectionView(==height)]|", options: NSLayoutFormatOptions(rawValue: 0), metrics: metrics, views: views))
         view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|[collectionView]|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: views))
         view.layoutIfNeeded()
+        
+        let alphabet = ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"]
+        let inset: CGFloat = CGRectGetWidth(view.frame) / 6.5
+        let labelWidth = (CGRectGetWidth(view.frame) - (inset * 2)) / CGFloat(alphabet.count)
+        metrics = ["inset": inset, "labelWidth": labelWidth]
+        var index: CGFloat = 1
+        var labelRotation: CGFloat = -0.75
+        var previousLabel: UILabel?
+        for letter in alphabet {
+            let label = UILabel()
+            label.textAlignment = .Center
+            label.translatesAutoresizingMaskIntoConstraints = false
+            label.font = UIFont.systemFontOfSize(8)
+            label.text = letter
+            var views = ["label": label]
+            view.addSubview(label)
+            
+            var i = index
+            if index < (CGFloat(alphabet.count) / 2) {
+                i -= 1
+            } else if index == (CGFloat(alphabet.count) / 2) {
+                i -= 0.5
+            }
+            let V = "V:[label(==30)]-(\(((CGFloat(alphabet.count) - i) * (i / 3.5)) - 10))-|"
+            view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat(V, options: NSLayoutFormatOptions(rawValue: 0), metrics: metrics, views: views))
+            
+            var H = ""
+            if let _previousLabel = previousLabel {
+                views["_previousLabel"] = _previousLabel
+                H = "H:[_previousLabel][label(==labelWidth)]"
+            } else {
+                H = "H:|-(inset)-[label(==labelWidth)]"
+            }
+            view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat(H, options: NSLayoutFormatOptions(rawValue: 0), metrics: metrics, views: views))
+            
+            if i < CGFloat(alphabet.count) / 2 {
+                label.transform = CGAffineTransformMakeRotation(labelRotation)
+            } else if i > CGFloat(alphabet.count) / 2 {
+                label.transform = CGAffineTransformMakeRotation(labelRotation)
+            }
+            
+            index += 1
+            labelRotation += 0.0577
+            previousLabel = label
+        }
     }
     
     private func buildFocusedCardUI() {

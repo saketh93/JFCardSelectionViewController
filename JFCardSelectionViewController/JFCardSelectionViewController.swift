@@ -63,7 +63,7 @@ public class JFCardSelectionViewController: UIViewController {
     private var previouslySelectedIndexPath: NSIndexPath?
     private let topSpace: CGFloat = 74
     private let bottomSpace: CGFloat = 20
-    private let horizontalSpace: CGFloat = 80
+    private let horizontalSpace: CGFloat = 75
     private var focusedViewMetrics: [String: CGFloat] {
         let width = CGRectGetWidth(view.frame) - (horizontalSpace * 2)
         return [
@@ -81,6 +81,10 @@ public class JFCardSelectionViewController: UIViewController {
             "focusedViewTwo": focusedViewTwo,
             "collectionView": collectionView
         ]
+    }
+    
+    deinit {
+        collectionView.removeObserver(self, forKeyPath: "contentOffset")
     }
     
     public override func viewDidLoad() {
@@ -133,6 +137,7 @@ public class JFCardSelectionViewController: UIViewController {
     private func buildCardSelectionUI() {
         collectionView.dataSource = self
         collectionView.delegate = self
+        collectionView.showsHorizontalScrollIndicator = false
         let bundle = NSBundle(forClass: JFCardSelectionCell.self)
         collectionView.registerNib(UINib(nibName: JFCardSelectionCell.reuseIdentifier, bundle: bundle), forCellWithReuseIdentifier: JFCardSelectionCell.reuseIdentifier)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
@@ -145,50 +150,43 @@ public class JFCardSelectionViewController: UIViewController {
         view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|[collectionView]|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: views))
         view.layoutIfNeeded()
         
-        let alphabet = ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"]
-        let inset: CGFloat = CGRectGetWidth(view.frame) / 6.5
-        let labelWidth = (CGRectGetWidth(view.frame) - (inset * 2)) / CGFloat(alphabet.count)
-        metrics = ["inset": inset, "labelWidth": labelWidth]
-        var index: CGFloat = 1
-        var labelRotation: CGFloat = -0.75
-        var previousLabel: UILabel?
-        for letter in alphabet {
-            let label = UILabel()
-            label.textAlignment = .Center
-            label.translatesAutoresizingMaskIntoConstraints = false
-            label.font = UIFont.systemFontOfSize(8)
-            label.text = letter
-            var views = ["label": label]
-            view.addSubview(label)
-            
-            var i = index
-            if index < (CGFloat(alphabet.count) / 2) {
-                i -= 1
-            } else if index == (CGFloat(alphabet.count) / 2) {
-                i -= 0.5
-            }
-            let V = "V:[label(==30)]-(\(((CGFloat(alphabet.count) - i) * (i / 3.5)) - 10))-|"
-            view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat(V, options: NSLayoutFormatOptions(rawValue: 0), metrics: metrics, views: views))
-            
-            var H = ""
-            if let _previousLabel = previousLabel {
-                views["_previousLabel"] = _previousLabel
-                H = "H:[_previousLabel][label(==labelWidth)]"
-            } else {
-                H = "H:|-(inset)-[label(==labelWidth)]"
-            }
-            view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat(H, options: NSLayoutFormatOptions(rawValue: 0), metrics: metrics, views: views))
-            
-            if i < CGFloat(alphabet.count) / 2 {
-                label.transform = CGAffineTransformMakeRotation(labelRotation)
-            } else if i > CGFloat(alphabet.count) / 2 {
-                label.transform = CGAffineTransformMakeRotation(labelRotation)
-            }
-            
-            index += 1
-            labelRotation += 0.0577
-            previousLabel = label
-        }
+        var width = CGRectGetWidth(view.frame)
+        var y = CGRectGetMaxY(view.frame) - 40
+        
+        let circleView = CircularView()
+        circleView.translatesAutoresizingMaskIntoConstraints = false
+        view.insertSubview(circleView, belowSubview: collectionView)
+        metrics = ["width": CGRectGetWidth(view.frame), "y": CGRectGetMaxY(view.frame) - 60]
+        view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-(y)-[circleView(==width)]", options: NSLayoutFormatOptions(rawValue: 0), metrics: metrics, views: ["circleView": circleView]))
+        view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|[circleView(==width)]|", options: NSLayoutFormatOptions(rawValue: 0), metrics: metrics, views: ["circleView": circleView]))
+        view.layoutIfNeeded()
+        
+        bottomCircleOutlineView.backgroundColor = UIColor.clearColor()
+        view.insertSubview(bottomCircleOutlineView, belowSubview: circleView)
+        width += 20
+        y -= 30
+        bottomCircleOutlineView.frame = CGRect(x: 0, y: y, width: width, height: width)
+        let trackingLine = UIView(frame: CGRect(x: 0, y: 0, width: width, height: width))
+        trackingLine.makeRoundWithBorder(width: 2, color: UIColor.whiteColor().colorWithAlphaComponent(0.5))
+        bottomCircleOutlineView.addSubview(trackingLine)
+        bottomCircleOutlineView.center.x = view.center.x
+        
+        var x = (CGRectGetWidth(bottomCircleOutlineView.frame) / CGFloat(M_PI * 2)) - 9.5
+        y = x
+        let trackingIndicatorInner = UIView(frame: CGRect(x: x, y: y, width: 10, height: 10))
+        trackingIndicatorInner.makeRound()
+        trackingIndicatorInner.backgroundColor = UIColor.whiteColor()
+        
+        x -= 2.5
+        y -= 2.5
+        let trackingIndicatorOuter = UIView(frame: CGRect(x: x, y: y, width: 15, height: 15))
+        trackingIndicatorOuter.makeRound()
+        trackingIndicatorOuter.backgroundColor = UIColor.blackColor().colorWithAlphaComponent(0.2)
+        
+        bottomCircleOutlineView.addSubview(trackingIndicatorOuter)
+        bottomCircleOutlineView.addSubview(trackingIndicatorInner)
+        
+        collectionView.addObserver(self, forKeyPath: "contentOffset", options: .New, context: nil)
     }
     
     private func buildFocusedCardUI() {
@@ -216,38 +214,25 @@ public class JFCardSelectionViewController: UIViewController {
         
         view.layoutIfNeeded()
         
-        let color = UIColor.whiteColor().colorWithAlphaComponent(0.5)
-        var acc = AccessoryIndicator.withColor(color, facing: .Left, size: CGSize(width: 44, height: 200))
+        let color = UIColor.blackColor().colorWithAlphaComponent(0.4)
+        let h = 64
+        let w = 44
+        let metrics = ["w": w, "h": h]
+        var acc = AccessoryIndicator.withColor(color, facing: .Left, size: CGSize(width: w, height: h))
         acc.addTarget(self, action: Selector("previousCard"), forControlEvents: .TouchUpInside)
         acc.translatesAutoresizingMaskIntoConstraints = false
         view.insertSubview(acc, belowSubview: focusedView)
         view.addConstraint(NSLayoutConstraint(item: acc, attribute: .CenterY, relatedBy: .Equal, toItem: focusedView, attribute: .CenterY, multiplier: 1, constant: 0))
-        view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:[acc(==200)]", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: ["acc": acc]))
-        view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|-(5)-[acc]", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: ["acc": acc]))
+        view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:[acc(==h)]", options: NSLayoutFormatOptions(rawValue: 0), metrics: metrics, views: ["acc": acc]))
+        view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|-(0)-[acc(==w)]", options: NSLayoutFormatOptions(rawValue: 0), metrics: metrics, views: ["acc": acc]))
         
-        acc = AccessoryIndicator.withColor(color, facing: .Right, size: CGSize(width: 44, height: 200))
+        acc = AccessoryIndicator.withColor(color, facing: .Right, size: CGSize(width: w, height: h))
         acc.translatesAutoresizingMaskIntoConstraints = false
         acc.addTarget(self, action: Selector("nextCard"), forControlEvents: .TouchUpInside)
         view.insertSubview(acc, belowSubview: focusedView)
         view.addConstraint(NSLayoutConstraint(item: acc, attribute: .CenterY, relatedBy: .Equal, toItem: focusedView, attribute: .CenterY, multiplier: 1, constant: 0))
-        view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:[acc(==200)]", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: ["acc": acc]))
-        view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:[acc]-(5)-|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: ["acc": acc]))
-        
-        bottomCircleView.backgroundColor = UIColor.whiteColor().colorWithAlphaComponent(0.5)
-        view.insertSubview(bottomCircleView, belowSubview: collectionView)
-        var height = CGRectGetWidth(view.frame)
-        var y = CGRectGetMaxY(view.frame) - 44
-        bottomCircleView.frame = CGRect(x: 0, y: y, width: height, height: height)
-        bottomCircleView.makeRoundWithBorder(width: 0.5, color: UIColor.whiteColor().colorWithAlphaComponent(0.7))
-        bottomCircleView.center.x = view.center.x
-        
-        bottomCircleOutlineView.backgroundColor = UIColor.clearColor()
-        view.insertSubview(bottomCircleOutlineView, belowSubview: bottomCircleView)
-        height += 40
-        y -= 20
-        bottomCircleOutlineView.frame = CGRect(x: 0, y: y, width: height, height: height)
-        bottomCircleOutlineView.makeRoundWithBorder(width: 2, color: UIColor.whiteColor().colorWithAlphaComponent(0.5))
-        bottomCircleOutlineView.center.x = view.center.x
+        view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:[acc(==h)]", options: NSLayoutFormatOptions(rawValue: 0), metrics: metrics, views: ["acc": acc]))
+        view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:[acc(==w)]-(0)-|", options: NSLayoutFormatOptions(rawValue: 0), metrics: metrics, views: ["acc": acc]))
         
         view.layoutIfNeeded()
     }
@@ -442,6 +427,17 @@ public class JFCardSelectionViewController: UIViewController {
         }) { finished in
             self.finishAnimations()
         }
+    }
+    
+    var rotation: CGFloat = 0
+    
+    public override func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<Void>) {
+        
+        guard let offset = change?[NSKeyValueChangeNewKey]?.CGPointValue else { return }
+        guard let flowLayout = collectionView.collectionViewLayout as? JFCardSelectionViewFlowLayout else { return }
+        let w = ((collectionView.contentSize.width - (flowLayout.sectionInset.left + flowLayout.sectionInset.right))) / CGFloat(M_PI_2)
+        rotation = (offset.x / w)
+        bottomCircleOutlineView.transform = CGAffineTransformMakeRotation(rotation)
     }
     
 }

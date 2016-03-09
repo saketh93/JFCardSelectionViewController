@@ -43,7 +43,7 @@ class AccessoryIndicator: UIControl {
     
     override func drawRect(rect: CGRect) {
         let y = CGRectGetMidY(bounds)
-        let R = CGFloat(44)
+        let R = CGRectGetHeight(rect)
         let ctxt = UIGraphicsGetCurrentContext()
         if let _facing = facing {
             switch _facing {

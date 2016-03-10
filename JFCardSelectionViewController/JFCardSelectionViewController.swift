@@ -55,6 +55,7 @@ public class JFCardSelectionViewController: UIViewController {
     private var focusedViewHConstraints = [NSLayoutConstraint]()
     private var focusedViewTwo = JFFocusedCardView.loadFromNib()
     private var focusedViewTwoHConstraints = [NSLayoutConstraint]()
+    private let dialView = DialView()
     private let collectionView = UICollectionView(frame: CGRectZero, collectionViewLayout: JFCardSelectionViewFlowLayout())
     private let blurEffectView = UIVisualEffectView(effect: UIBlurEffect(style: .Light))
     private let blurEffectViewTwo = UIVisualEffectView(effect: UIBlurEffect(style: .Light))
@@ -153,18 +154,17 @@ public class JFCardSelectionViewController: UIViewController {
         var width = CGRectGetWidth(view.frame)
         var y = CGRectGetMaxY(view.frame) - 40
         
-        let circleView = CircularView()
-        circleView.translatesAutoresizingMaskIntoConstraints = false
-        view.insertSubview(circleView, belowSubview: collectionView)
+        dialView.translatesAutoresizingMaskIntoConstraints = false
+        view.insertSubview(dialView, belowSubview: collectionView)
         metrics = ["width": CGRectGetWidth(view.frame), "y": CGRectGetMaxY(view.frame) - 60]
-        view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-(y)-[circleView(==width)]", options: NSLayoutFormatOptions(rawValue: 0), metrics: metrics, views: ["circleView": circleView]))
-        view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|[circleView(==width)]|", options: NSLayoutFormatOptions(rawValue: 0), metrics: metrics, views: ["circleView": circleView]))
+        view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-(y)-[dialView(==width)]", options: NSLayoutFormatOptions(rawValue: 0), metrics: metrics, views: ["dialView": dialView]))
+        view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|[dialView(==width)]|", options: NSLayoutFormatOptions(rawValue: 0), metrics: metrics, views: ["dialView": dialView]))
         view.layoutIfNeeded()
         
         bottomCircleOutlineView.backgroundColor = UIColor.clearColor()
-        view.insertSubview(bottomCircleOutlineView, belowSubview: circleView)
-        width += 20
-        y -= 30
+        view.insertSubview(bottomCircleOutlineView, belowSubview: dialView)
+        width += 15
+        y -= 27.5
         bottomCircleOutlineView.frame = CGRect(x: 0, y: y, width: width, height: width)
         let trackingLine = UIView(frame: CGRect(x: 0, y: 0, width: width, height: width))
         trackingLine.makeRoundWithBorder(width: 2, color: UIColor.whiteColor().colorWithAlphaComponent(0.5))
@@ -238,6 +238,9 @@ public class JFCardSelectionViewController: UIViewController {
     }
     
     private func updateUIForCard(card: CardPresentable, atIndexPath indexPath: NSIndexPath) {
+        
+        dialView.rotatePointerToLabel("")
+        
         collectionView.scrollToItemAtIndexPath(indexPath, atScrollPosition: .CenteredHorizontally, animated: true)
         if !showingImageViewOne {
             if backgroundImage == nil {

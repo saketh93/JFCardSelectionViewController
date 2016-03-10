@@ -4,12 +4,18 @@
 //
 //  Created by Jeremy Fox on 3/9/16.
 //  Copyright © 2016 Jeremy Fox. All rights reserved.
-//
+
+
+//  NOTE:
+//  This was adapted from the gist here: https://gist.github.com/sketchytech/d0a8909459aea899e67c
+//  That gist gave me a great starting point for learning how to determine the CGPoints around are circle and being able to draw lines and labels in or around the circle in equal distances
 
 import UIKit
 
-class CircularView: UIView {
+class DialView: UIView {
 
+    let pointerLayer = PointerLayer()
+    private var rotation: Double = -0.563
     private let sides = 110
     private var alphabet: [String] {
         return ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"]
@@ -37,16 +43,25 @@ class CircularView: UIView {
         CGContextSetLineWidth(ctx, 0.5)
         CGContextDrawPath(ctx, .FillStroke)
         
-        secondMarkers(ctx, x: CGRectGetMidX(newRect), y: CGRectGetMidY(newRect), radius: rad, sides: sides, color: UIColor.whiteColor())
+        drawMarkers(ctx, x: CGRectGetMidX(newRect), y: CGRectGetMidY(newRect), radius: rad, sides: sides, color: UIColor.whiteColor())
         
         drawText(newRect, ctx: ctx, radius: rad, color: UIColor.whiteColor())
+        
+        pointerLayer.frame = rect
+        layer.addSublayer(pointerLayer)
+        pointerLayer.transform = CATransform3DMakeAffineTransform(CGAffineTransformMakeRotation(CGFloat(rotation/M_PI_4)))
+        pointerLayer.setNeedsDisplay()
+    }
+    
+    func rotatePointerToLabel(label: String) {
+        rotation += 0.045
+        pointerLayer.transform = CATransform3DMakeAffineTransform(CGAffineTransformMakeRotation(CGFloat(rotation/M_PI_4)))
     }
     
     private func degreeToRadian(a:CGFloat)->CGFloat {
         let b = CGFloat(M_PI) * a/180
         return b
     }
-    
     
     private func circleCircumferencePoints(sides: Int, _ x: CGFloat, _ y: CGFloat, _ radius: CGFloat, adjustment: CGFloat=0) -> [CGPoint] {
         let angle = degreeToRadian(360/CGFloat(sides))
@@ -64,7 +79,7 @@ class CircularView: UIView {
         return points
     }
     
-    private func secondMarkers(ctx: CGContextRef, x: CGFloat, y: CGFloat, radius: CGFloat, sides: Int, color: UIColor) {
+    private func drawMarkers(ctx: CGContextRef, x: CGFloat, y: CGFloat, radius: CGFloat, sides: Int, color: UIColor) {
         let points = circleCircumferencePoints(sides, x, y, radius)
         let path = CGPathCreateMutable()
         let divider:CGFloat = 0.03

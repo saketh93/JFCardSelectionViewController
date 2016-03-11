@@ -10,11 +10,9 @@ import UIKit
 
 public struct CardAction {
     public let title: String
-    public let action: () -> Void
     
-    public init(title: String, action: () -> Void) {
+    public init?(title: String) {
         self.title = title
-        self.action = action
     }
 }
 
@@ -22,17 +20,18 @@ public protocol CardPresentable {
     var imageURLString: String { get }
     var placeholderImage: UIImage? { get }
     var titleText: String { get }
+    var dialLabel: String { get }
     var detailText: String { get }
     var actionOne: CardAction? { get }
     var actionTwo: CardAction? { get }
 }
 
-public protocol JFCardSelectionViewControllerDelegate {
-    
-}
-
 public enum JFCardSelectionViewSelectionAnimationStyle {
     case Fade, Slide
+}
+
+public protocol JFCardSelectionViewControllerDelegate {
+    func cardSelectionViewController(cardSelectionViewController: JFCardSelectionViewController, didSelectCardAction cardAction: CardAction, forCardAtIndexPath indexPath: NSIndexPath) -> Void
 }
 
 public protocol JFCardSelectionViewControllerDataSource {
@@ -43,25 +42,30 @@ public protocol JFCardSelectionViewControllerDataSource {
 public class JFCardSelectionViewController: UIViewController {
     
     /// This will be the UIImage behind a UIVisualEffects view that will be used to add a blur effect to the background. If this isn't set, the photo of the selected CardPresentable will be used.
-    public var backgroundImage: UIImage?
+    public var backgroundImage: UIImage? {
+        didSet {
+            bgImageView.image = backgroundImage
+        }
+    }
     public var delegate: JFCardSelectionViewControllerDelegate?
     public var dataSource: JFCardSelectionViewControllerDataSource?
     public var selectionAnimationStyle: JFCardSelectionViewSelectionAnimationStyle = .Fade
     
+    var previouslySelectedIndexPath: NSIndexPath?
+    let focusedView = JFFocusedCardView.loadFromNib()
+    let focusedViewTwo = JFFocusedCardView.loadFromNib()
+    let dialView = DialView()
+    let collectionView = UICollectionView(frame: CGRectZero, collectionViewLayout: JFCardSelectionViewFlowLayout())
+    
     private var bgImageView = UIImageView()
     private var bgImageViewTwo = UIImageView()
     private var showingImageViewOne = true
-    private var focusedView = JFFocusedCardView.loadFromNib()
     private var focusedViewHConstraints = [NSLayoutConstraint]()
-    private var focusedViewTwo = JFFocusedCardView.loadFromNib()
     private var focusedViewTwoHConstraints = [NSLayoutConstraint]()
-    private let dialView = DialView()
-    private let collectionView = UICollectionView(frame: CGRectZero, collectionViewLayout: JFCardSelectionViewFlowLayout())
     private let blurEffectView = UIVisualEffectView(effect: UIBlurEffect(style: .Light))
     private let blurEffectViewTwo = UIVisualEffectView(effect: UIBlurEffect(style: .Light))
     private let bottomCircleView = UIView()
     private let bottomCircleOutlineView = UIView()
-    private var previouslySelectedIndexPath: NSIndexPath?
     private let topSpace: CGFloat = 74
     private let bottomSpace: CGFloat = 20
     private let horizontalSpace: CGFloat = 75
@@ -190,6 +194,9 @@ public class JFCardSelectionViewController: UIViewController {
     }
     
     private func buildFocusedCardUI() {
+        focusedView.delegate = self
+        focusedViewTwo.delegate = self
+        
         focusedView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(focusedView)
         focusedViewTwo.translatesAutoresizingMaskIntoConstraints = false
@@ -237,7 +244,7 @@ public class JFCardSelectionViewController: UIViewController {
         view.layoutIfNeeded()
     }
     
-    private func updateUIForCard(card: CardPresentable, atIndexPath indexPath: NSIndexPath) {
+    func updateUIForCard(card: CardPresentable, atIndexPath indexPath: NSIndexPath) {
         collectionView.scrollToItemAtIndexPath(indexPath, atScrollPosition: .CenteredHorizontally, animated: true)
         if !showingImageViewOne {
             if backgroundImage == nil {
@@ -291,7 +298,7 @@ public class JFCardSelectionViewController: UIViewController {
         }
     }
     
-    private func fade() {
+    func fade() {
         UIView.animateWithDuration(0.5, animations: { () -> Void in
             if self.backgroundImage == nil {
                 self.bgImageView.alpha = CGFloat(!self.showingImageViewOne)
@@ -304,7 +311,7 @@ public class JFCardSelectionViewController: UIViewController {
         }
     }
     
-    private func finishAnimations() {
+    func finishAnimations() {
         if self.showingImageViewOne {
             if self.backgroundImage == nil {
                 self.bgImageViewTwo.image = nil
@@ -318,7 +325,7 @@ public class JFCardSelectionViewController: UIViewController {
         }
     }
     
-    private func shake() {
+    func shake() {
         var startX: CGFloat
         if self.showingImageViewOne {
             startX = self.focusedView.center.x
@@ -364,7 +371,7 @@ public class JFCardSelectionViewController: UIViewController {
         }
     }
     
-    private func slideToIndexPath(indexPath: NSIndexPath) {
+    func slideToIndexPath(indexPath: NSIndexPath) {
         var scrollLeft = true
         if let _previousIndexPath = previouslySelectedIndexPath {
             scrollLeft = indexPath.row > _previousIndexPath.row
@@ -437,46 +444,16 @@ public class JFCardSelectionViewController: UIViewController {
         let w = ((collectionView.contentSize.width - (flowLayout.sectionInset.left + flowLayout.sectionInset.right))) / CGFloat(M_PI_2)
         rotation = (offset.x / w)
         bottomCircleOutlineView.transform = CGAffineTransformMakeRotation(rotation)
-    }
-    
-}
-
-extension JFCardSelectionViewController: UICollectionViewDelegate {
-    
-    public func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
-        guard indexPath != previouslySelectedIndexPath else {
-            shake()
-            return
+        
+        let collectionViewCenterX = collectionView.center.x
+        for item in collectionView.visibleCells() {
+            guard let cardCell = item as? JFCardSelectionCell else { return }
+            let cardPosition = view.convertPoint(cardCell.center, fromView: collectionView)
+            if cardPosition.x <= collectionViewCenterX + 20 && cardPosition.x >= collectionViewCenterX - 20 {
+                guard let label = cardCell.card?.dialLabel else { return }
+                dialView.rotatePointerToLabel(label)
+            }
         }
-        guard let card = dataSource?.cardSelectionViewController(self, cardForItemAtIndexPath: indexPath) else {
-            return
-        }
-        updateUIForCard(card, atIndexPath: indexPath)
-        previouslySelectedIndexPath = indexPath
     }
     
-}
-
-extension JFCardSelectionViewController: UICollectionViewDataSource {
-    public func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        guard let _dataSource = dataSource else { return 0 }
-        return _dataSource.numberOfCardsForCardSelectionViewController(self)
-    }
-    
-    public func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        return collectionView.dequeueReusableCellWithReuseIdentifier(JFCardSelectionCell.reuseIdentifier, forIndexPath: indexPath)
-    }
-    
-    public func collectionView(collectionView: UICollectionView, willDisplayCell cell: UICollectionViewCell, forItemAtIndexPath indexPath: NSIndexPath) {
-        guard let cell = cell as? JFCardSelectionCell else { fatalError("Expected to display a `JFCardSelectionCell`.") }
-        guard let _dataSource = dataSource else { return }
-        let card = _dataSource.cardSelectionViewController(self, cardForItemAtIndexPath: indexPath)
-        cell.configureForCard(card, inScrollView: collectionView)
-        if (collectionView.indexPathsForSelectedItems()?.count ?? 0) == 0 && indexPath.section == 0 && indexPath.row == 0 && focusedView.card == nil {
-            focusedView.configureForCard(card)
-            previouslySelectedIndexPath = indexPath
-        }
-        dialView.setNeedsLayout()
-        dialView.rotatePointerToLabel(card.titleText[0])
-    }
 }

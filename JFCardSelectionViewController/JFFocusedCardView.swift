@@ -8,9 +8,15 @@
 
 import UIKit
 
+protocol JFFocusedCardViewDelegate {
+    func focusedCardViewDidSelectActionItemOne(focusedCardView: JFFocusedCardView) -> Void
+    func focusedCardViewDidSelectActionItemTwo(focusedCardView: JFFocusedCardView) -> Void
+}
+
 class JFFocusedCardView: UIView {
 
     var card: CardPresentable!
+    var delegate: JFFocusedCardViewDelegate?
     @IBOutlet var imageView: UIImageView!
     @IBOutlet var titleLabel: UILabel!
     @IBOutlet var subTitleLabelOne: UILabel!
@@ -67,11 +73,11 @@ class JFFocusedCardView: UIView {
     }
 
     @IBAction func actionOneButtonAction(sender: AnyObject) {
-        self.card.actionOne?.action()
+        delegate?.focusedCardViewDidSelectActionItemOne(self)
     }
     
     @IBAction func actionTwoButtonAction(sender: AnyObject) {
-        self.card.actionTwo?.action()
+        delegate?.focusedCardViewDidSelectActionItemTwo(self)
     }
 }
 

@@ -56,8 +56,9 @@ class DialView: UIView {
     
     func rotatePointerToLabel(label: String) {
         let rotateTo = rotationForLabel(label)
-        if pointerLayer.superlayer == layer {
-            pointerLayer.transform = CATransform3DMakeAffineTransform(CGAffineTransformMakeRotation(rotateTo))
+        let transform = CATransform3DMakeAffineTransform(CGAffineTransformMakeRotation(rotateTo))
+        if pointerLayer.superlayer == layer && !CATransform3DEqualToTransform(pointerLayer.transform, transform) {
+            pointerLayer.transform = transform
         }
     }
     

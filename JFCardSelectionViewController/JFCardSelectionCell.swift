@@ -15,7 +15,7 @@ class JFCardSelectionCell: UICollectionViewCell {
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var label: UILabel!
     private weak var scrollView: UIScrollView!
-    private var card: CardPresentable?
+    var card: CardPresentable?
     private var rotation: CGFloat {
         guard let _scrollView = scrollView else { return 0 }
         guard let _superView = _scrollView.superview else { return 0 }

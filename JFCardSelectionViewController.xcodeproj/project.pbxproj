@@ -23,7 +23,7 @@
 		1935E6FF1C86526D00449C48 /* JFFocusedCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1935E6FE1C86526D00449C48 /* JFFocusedCardView.swift */; };
 		1935E7011C86527D00449C48 /* JFFocusedCardView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1935E7001C86527D00449C48 /* JFFocusedCardView.xib */; };
 		19AE5E521C8A2620005295EA /* AccessoryIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19AE5E511C8A2620005295EA /* AccessoryIndicator.swift */; };
-		1AB955CB1C88899F00A8E776 /* Shadow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AB955CA1C88899F00A8E776 /* Shadow.swift */; };
+		1AB955CB1C88899F00A8E776 /* ShadowAttributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AB955CA1C88899F00A8E776 /* ShadowAttributes.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -56,7 +56,7 @@
 		1935E6FE1C86526D00449C48 /* JFFocusedCardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JFFocusedCardView.swift; sourceTree = "<group>"; };
 		1935E7001C86527D00449C48 /* JFFocusedCardView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = JFFocusedCardView.xib; sourceTree = "<group>"; };
 		19AE5E511C8A2620005295EA /* AccessoryIndicator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccessoryIndicator.swift; sourceTree = "<group>"; };
-		1AB955CA1C88899F00A8E776 /* Shadow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Shadow.swift; sourceTree = "<group>"; };
+		1AB955CA1C88899F00A8E776 /* ShadowAttributes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShadowAttributes.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -127,7 +127,7 @@
 				1935E6E51C862F3300449C48 /* JFCardSelectionViewFlowLayout.swift */,
 				1935E6FE1C86526D00449C48 /* JFFocusedCardView.swift */,
 				1935E7001C86527D00449C48 /* JFFocusedCardView.xib */,
-				1AB955CA1C88899F00A8E776 /* Shadow.swift */,
+				1AB955CA1C88899F00A8E776 /* ShadowAttributes.swift */,
 				19AE5E511C8A2620005295EA /* AccessoryIndicator.swift */,
 				1923B0E11C90B5890041C77B /* DialView.swift */,
 				1923B0E31C91BCA10041C77B /* PointerLayer.swift */,
@@ -268,7 +268,7 @@
 				1935E6E31C862E3000449C48 /* JFCardSelectionCell.swift in Sources */,
 				1935E6DE1C86194100449C48 /* JFCardSelectionViewController.swift in Sources */,
 				1923B10E1C92565E0041C77B /* UIImageView.swift in Sources */,
-				1AB955CB1C88899F00A8E776 /* Shadow.swift in Sources */,
+				1AB955CB1C88899F00A8E776 /* ShadowAttributes.swift in Sources */,
 				1923B1181C93137C0041C77B /* JFCardSelectionViewController+JFFocusedCardViewDelegate.swift in Sources */,
 				1923B0E41C91BCA10041C77B /* PointerLayer.swift in Sources */,
 				1935E6FF1C86526D00449C48 /* JFFocusedCardView.swift in Sources */,

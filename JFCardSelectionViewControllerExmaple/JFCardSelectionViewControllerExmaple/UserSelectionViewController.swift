@@ -233,8 +233,12 @@ extension User: CardPresentable {
         return String(lastString[lastString.startIndex])
     }
     
-    var detailText: String {
-        return "\(address) \n\(city), \(state) \(zip)"
+    var detailTextLineOne: String {
+        return address
+    }
+    
+    var detailTextLineTwo: String {
+        return "\(city), \(state) \(zip)"
     }
     
     var actionOne: CardAction? {

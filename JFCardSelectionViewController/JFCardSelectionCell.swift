@@ -34,17 +34,6 @@ class JFCardSelectionCell: UICollectionViewCell {
         }
         return ((y * height) / 1.8) + (height / 2.5)
     }
-    private var centerX: CGFloat {
-        let midX = CGRectGetMidX(scrollView.frame)
-        var x = rotation
-        if rotation < 0.0 {
-            x *= -1
-            x *= (rotation * -1)
-        } else {
-            x *= rotation
-        }
-        return center.x //(x * midX) + midX
-    }
     
     deinit {
         scrollView.removeObserver(self, forKeyPath: "contentOffset")
@@ -84,7 +73,6 @@ class JFCardSelectionCell: UICollectionViewCell {
         
 //        if (card?.titleText ?? "") == "Avery Smith" {
         self.transform = CGAffineTransformMakeRotation(rotation)
-//        center = CGPoint(x: centerX, y: centerY)
         center.y = centerY
 //        }
     }

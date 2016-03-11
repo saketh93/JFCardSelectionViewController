@@ -17,7 +17,7 @@ class DialView: UIView {
     let pointerLayer = PointerLayer()
     private var rotation: Double = -0.563
     private let sides = 110
-    private var alphabet: [String] {
+    var labels: [String] {
         return ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"]
     }
     
@@ -49,21 +49,29 @@ class DialView: UIView {
         
         pointerLayer.frame = rect
         layer.addSublayer(pointerLayer)
-        pointerLayer.transform = CATransform3DMakeAffineTransform(CGAffineTransformMakeRotation(CGFloat(rotation/M_PI_4)))
         pointerLayer.setNeedsDisplay()
+        let startingRotation = rotationForLabel("A")
+        pointerLayer.transform = CATransform3DMakeAffineTransform(CGAffineTransformMakeRotation(startingRotation))
     }
     
     func rotatePointerToLabel(label: String) {
-        rotation += 0.045
-        pointerLayer.transform = CATransform3DMakeAffineTransform(CGAffineTransformMakeRotation(CGFloat(rotation/M_PI_4)))
+        let rotateTo = rotationForLabel(label)
+        if pointerLayer.superlayer == layer {
+            pointerLayer.transform = CATransform3DMakeAffineTransform(CGAffineTransformMakeRotation(rotateTo))
+        }
     }
     
-    private func degreeToRadian(a:CGFloat)->CGFloat {
-        let b = CGFloat(M_PI) * a/180
-        return b
+    private func degreeToRadian(a: CGFloat) -> CGFloat {
+        return CGFloat(M_PI) * a / 180
     }
     
-    private func circleCircumferencePoints(sides: Int, _ x: CGFloat, _ y: CGFloat, _ radius: CGFloat, adjustment: CGFloat=0) -> [CGPoint] {
+    private func rotationForLabel(label: String) -> CGFloat {
+        guard let index = labels.indexOf(label) else { return CGFloat(rotation) }
+        let rotationStep: CGFloat = 0.045
+        return (CGFloat(rotation) + (CGFloat(index) * rotationStep)) / CGFloat(M_PI_4)
+    }
+    
+    private func circleCircumferencePoints(sides: Int, _ x: CGFloat, _ y: CGFloat, _ radius: CGFloat, adjustment: CGFloat = 0) -> [CGPoint] {
         let angle = degreeToRadian(360/CGFloat(sides))
         let cx = x // x origin
         let cy = y // y origin
@@ -109,11 +117,11 @@ class DialView: UIView {
         let points = circleCircumferencePoints(sides, CGRectGetMidX(rect), CGRectGetMidY(rect) - inset, radius + (inset / CGFloat(M_PI)), adjustment: 314)
         for (i,p) in points.enumerate() {
             guard i > 0 else { continue }
-            guard i < alphabet.count + 1 else { return }
+            guard i < labels.count + 1 else { return }
             let index = i - 1
             let aFont = UIFont.systemFontOfSize(7, weight: UIFontWeightLight)
             let attr: CFDictionaryRef = [NSFontAttributeName:aFont, NSForegroundColorAttributeName:UIColor.blackColor()]
-            let text = CFAttributedStringCreate(nil, alphabet[index], attr)
+            let text = CFAttributedStringCreate(nil, labels[index], attr)
             let line = CTLineCreateWithAttributedString(text)
             let bounds = CTLineGetBoundsWithOptions(line, CTLineBoundsOptions.UseOpticalBounds)
             CGContextSetLineWidth(ctx, 0.7)

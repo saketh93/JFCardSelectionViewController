@@ -238,9 +238,6 @@ public class JFCardSelectionViewController: UIViewController {
     }
     
     private func updateUIForCard(card: CardPresentable, atIndexPath indexPath: NSIndexPath) {
-        
-        dialView.rotatePointerToLabel("")
-        
         collectionView.scrollToItemAtIndexPath(indexPath, atScrollPosition: .CenteredHorizontally, animated: true)
         if !showingImageViewOne {
             if backgroundImage == nil {
@@ -433,7 +430,6 @@ public class JFCardSelectionViewController: UIViewController {
     }
     
     var rotation: CGFloat = 0
-    
     public override func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<Void>) {
         
         guard let offset = change?[NSKeyValueChangeNewKey]?.CGPointValue else { return }
@@ -480,5 +476,7 @@ extension JFCardSelectionViewController: UICollectionViewDataSource {
             focusedView.configureForCard(card)
             previouslySelectedIndexPath = indexPath
         }
+        dialView.setNeedsLayout()
+        dialView.rotatePointerToLabel(card.titleText[0])
     }
 }

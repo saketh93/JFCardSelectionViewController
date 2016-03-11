@@ -38,7 +38,7 @@ class DialView: UIView {
         let rad = CGRectGetWidth(newRect) / 2
         
         CGContextAddArc(ctx, CGRectGetMidX(rect), CGRectGetMidY(newRect), rad, 0, endAngle, 1)
-        CGContextSetFillColorWithColor(ctx, UIColor.whiteColor().colorWithAlphaComponent(0.5).CGColor)
+        CGContextSetFillColorWithColor(ctx, UIColor.whiteColor().colorWithAlphaComponent(0.4).CGColor)
         CGContextSetStrokeColorWithColor(ctx, UIColor.whiteColor().colorWithAlphaComponent(0.7).CGColor)
         CGContextSetLineWidth(ctx, 0.5)
         CGContextDrawPath(ctx, .FillStroke)
@@ -120,7 +120,7 @@ class DialView: UIView {
             guard i > 0 else { continue }
             guard i < labels.count + 1 else { return }
             let index = i - 1
-            let aFont = UIFont.systemFontOfSize(7, weight: UIFontWeightLight)
+            let aFont = UIFont.systemFontOfSize(8, weight: UIFontWeightLight)
             let attr: CFDictionaryRef = [NSFontAttributeName:aFont, NSForegroundColorAttributeName:UIColor.blackColor()]
             let text = CFAttributedStringCreate(nil, labels[index], attr)
             let line = CTLineCreateWithAttributedString(text)

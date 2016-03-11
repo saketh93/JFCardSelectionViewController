@@ -6,7 +6,7 @@ A fancy collection style view controller that was inspired by this Profile Card 
 What It Looks Like:
 ------------------
 
-![Example](https://dl.dropboxusercontent.com/u/55388810/example.gif)
+![Example](https://dl.dropboxusercontent.com/u/55388810/card_selection_controller.gif)
 
 How To Use It:
 -------------

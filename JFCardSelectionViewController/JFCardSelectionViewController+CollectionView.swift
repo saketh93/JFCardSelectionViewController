@@ -56,7 +56,7 @@ extension JFCardSelectionViewController: UICollectionViewDataSource {
         guard let _dataSource = dataSource else { return }
         let card = _dataSource.cardSelectionViewController(self, cardForItemAtIndexPath: indexPath)
         cell.configureForCard(card, inScrollView: collectionView)
-        if (collectionView.indexPathsForSelectedItems()?.count ?? 0) == 0 && indexPath.section == 0 && indexPath.row == 0 && focusedView.card == nil {
+        if (collectionView.indexPathsForSelectedItems()?.count ?? 0) == 0 && indexPath.section == 0 && indexPath.row == 0 && focusedView.card == nil && previouslySelectedIndexPath == nil {
             focusedView.configureForCard(card)
             previouslySelectedIndexPath = indexPath
         }

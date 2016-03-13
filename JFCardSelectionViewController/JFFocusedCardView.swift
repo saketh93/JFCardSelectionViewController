@@ -26,6 +26,7 @@
 import UIKit
 
 protocol JFFocusedCardViewDelegate {
+    func focusedCardViewDidSelectDetailAction(focusedCardView: JFFocusedCardView) -> Void
     func focusedCardViewDidSelectActionItemOne(focusedCardView: JFFocusedCardView) -> Void
     func focusedCardViewDidSelectActionItemTwo(focusedCardView: JFFocusedCardView) -> Void
 }
@@ -34,6 +35,7 @@ class JFFocusedCardView: UIView {
 
     var card: CardPresentable!
     var delegate: JFFocusedCardViewDelegate?
+    private var recognizer: UITapGestureRecognizer!
     @IBOutlet var imageView: UIImageView!
     @IBOutlet var titleLabel: UILabel!
     @IBOutlet var subTitleLabelOne: UILabel!
@@ -55,6 +57,9 @@ class JFFocusedCardView: UIView {
         actionTwoButton.layer.cornerRadius = 2
         actionTwoButton.layer.borderColor = UIColor.whiteColor().colorWithAlphaComponent(0.5).CGColor
         actionTwoButton.layer.borderWidth = 0.5
+        recognizer = UITapGestureRecognizer(target: self, action: Selector("tapAction"))
+        imageView.addGestureRecognizer(recognizer)
+        imageView.userInteractionEnabled = true
     }
     
     func configureForCard(card: CardPresentable?) {
@@ -95,6 +100,10 @@ class JFFocusedCardView: UIView {
     
     @IBAction func actionTwoButtonAction(sender: AnyObject) {
         delegate?.focusedCardViewDidSelectActionItemTwo(self)
+    }
+    
+    func tapAction() {
+        delegate?.focusedCardViewDidSelectDetailAction(self)
     }
 }
 

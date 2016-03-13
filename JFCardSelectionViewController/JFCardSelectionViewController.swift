@@ -50,6 +50,7 @@ public enum JFCardSelectionViewSelectionAnimationStyle {
 
 public protocol JFCardSelectionViewControllerDelegate {
     func cardSelectionViewController(cardSelectionViewController: JFCardSelectionViewController, didSelectCardAction cardAction: CardAction, forCardAtIndexPath indexPath: NSIndexPath) -> Void
+    func cardSelectionViewController(cardSelectionViewController: JFCardSelectionViewController, didSelectDetailActionForCardAtIndexPath indexPath: NSIndexPath) -> Void
 }
 
 public protocol JFCardSelectionViewControllerDataSource {

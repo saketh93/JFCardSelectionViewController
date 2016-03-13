@@ -34,18 +34,62 @@ class UserSelectionViewController: JFCardSelectionViewController {
         super.viewWillAppear(animated)
         
         /*
-        NOTE: If you are displaying an instance of `JFCardSelectionViewController` within a `UINavigationController`, you can use the code below to hide the navigation bar. This isn't required to use `JFCardSelectionViewController`, but `JFCardSelectionViewController` was designed to be used without a UINavigationBar.
+        NOTE: If you are displaying an instance of `JFCardSelectionViewController` within a `UINavigationController`, you can use the code below to hide the navigation bar. This isn't required to use `JFCardSelectionViewController` and you can display with navigation bar is you'd like. If you are not embedding it within a navigation controller then this code isn't needed.
+        */
         let image = UIImage()
         let navBar = navigationController?.navigationBar
         navBar?.setBackgroundImage(image, forBarMetrics: .Default)
         navBar?.shadowImage = image
-        */
         
         // Call `reloadData()` once you are ready to display your `CardPresentable` data or when there have been changes to that data that need to be represented in the UI.
         reloadData()
     }
     
-    let cards = [
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == "ShowUserDetailVC" {
+            guard let indexPath = sender as? NSIndexPath else { return }
+            let user = cards[indexPath.row]
+            let userDetailVC = segue.destinationViewController as? UserDetailViewController
+            userDetailVC?.user = user
+        }
+    }
+
+}
+
+extension UserSelectionViewController: JFCardSelectionViewControllerDataSource {
+    
+    func numberOfCardsForCardSelectionViewController(cardSelectionViewController: JFCardSelectionViewController) -> Int {
+        return cards.count
+    }
+    
+    func cardSelectionViewController(cardSelectionViewController: JFCardSelectionViewController, cardForItemAtIndexPath indexPath: NSIndexPath) -> CardPresentable {
+        return cards[indexPath.row]
+    }
+    
+}
+
+extension UserSelectionViewController: JFCardSelectionViewControllerDelegate {
+    
+    func cardSelectionViewController(cardSelectionViewController: JFCardSelectionViewController, didSelectCardAction cardAction: CardAction, forCardAtIndexPath indexPath: NSIndexPath) {
+        let card = cards[indexPath.row]
+        if let action = card.actionOne where action.title == cardAction.title {
+            print("----------- \nCard action fired! \nAction Title: \(cardAction.title) \nIndex Path: \(indexPath)")
+        }
+        if let action = card.actionTwo where action.title == cardAction.title {
+            print("----------- \nCard action fired! \nAction Title: \(cardAction.title) \nIndex Path: \(indexPath)")
+        }
+    }
+    
+    func cardSelectionViewController(cardSelectionViewController: JFCardSelectionViewController, didSelectDetailActionForCardAtIndexPath indexPath: NSIndexPath) {
+        performSegueWithIdentifier("ShowUserDetailVC", sender: indexPath)
+    }
+    
+}
+
+// Mock Data
+extension UserSelectionViewController {
+    var cards: [User] {
+        return [
         User(name: "Jennifer Adams", photoURL: "https://s-media-cache-ak0.pinimg.com/736x/5d/43/0b/5d430bd15603971c939fcc9a4358a35f.jpg", address: "123 Main St", city: "Atlanta", state: "GA", zip: 12345),
         User(name: "Jim Adel", photoURL: "http://a3.files.blazepress.com/image/upload/c_fit,cs_srgb,dpr_1.0,q_80,w_620/MTI4OTkyOTM4OTM5MTYxMDU0.jpg", address: "234 Main St", city: "Atlanta", state: "GA", zip: 12345),
         User(name: "Jane Aden", photoURL: "https://s-media-cache-ak0.pinimg.com/236x/b7/65/2d/b7652d8c4cf40bc0b1ebac37bb254fcb.jpg", address: "345 Main St", city: "Atlanta", state: "GA", zip: 12345),
@@ -172,33 +216,8 @@ class UserSelectionViewController: JFCardSelectionViewController {
         User(name: "Jamar Younger", photoURL: "http://cdn5.thr.com/sites/default/files/imagecache/portrait_300x450/2014/05/steven_yeun_headshot_a_p.jpg", address: "567 Main St", city: "Atlanta", state: "GA", zip: 12345),
         User(name: "Dude Zahner", photoURL: "https://40.media.tumblr.com/59581b4791b9d1230bd83f20d3861e85/tumblr_n3w0n8Bx581sp55uyo1_500.jpg", address: "678 Main St", city: "Atlanta", state: "GA", zip: 12345),
         User(name: "Steven Zeilder", photoURL: "http://static.celebuzz.com/uploads/2012/09/30/65902.jpg", address: "789 Main St", city: "Atlanta", state: "GA", zip: 12345)
-    ]
-}
-
-extension UserSelectionViewController: JFCardSelectionViewControllerDataSource {
-    
-    func numberOfCardsForCardSelectionViewController(cardSelectionViewController: JFCardSelectionViewController) -> Int {
-        return cards.count
+        ]
     }
-    
-    func cardSelectionViewController(cardSelectionViewController: JFCardSelectionViewController, cardForItemAtIndexPath indexPath: NSIndexPath) -> CardPresentable {
-        return cards[indexPath.row]
-    }
-    
-}
-
-extension UserSelectionViewController: JFCardSelectionViewControllerDelegate {
-    
-    func cardSelectionViewController(cardSelectionViewController: JFCardSelectionViewController, didSelectCardAction cardAction: CardAction, forCardAtIndexPath indexPath: NSIndexPath) {
-        let card = cards[indexPath.row]
-        if let action = card.actionOne where action.title == cardAction.title {
-            print("----------- \nCard action fired! \nAction Title: \(cardAction.title) \nIndex Path: \(indexPath)")
-        }
-        if let action = card.actionTwo where action.title == cardAction.title {
-            print("----------- \nCard action fired! \nAction Title: \(cardAction.title) \nIndex Path: \(indexPath)")
-        }
-    }
-    
 }
 
 

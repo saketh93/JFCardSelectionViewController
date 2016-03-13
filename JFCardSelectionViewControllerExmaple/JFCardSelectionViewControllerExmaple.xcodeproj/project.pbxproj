@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1923B1261C95E1C20041C77B /* UserDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1923B1251C95E1C20041C77B /* UserDetailViewController.swift */; };
 		1935E6A21C8618C500449C48 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1935E6A11C8618C500449C48 /* AppDelegate.swift */; };
 		1935E6A41C8618C500449C48 /* UserSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1935E6A31C8618C500449C48 /* UserSelectionViewController.swift */; };
 		1935E6A71C8618C500449C48 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1935E6A51C8618C500449C48 /* Main.storyboard */; };
@@ -71,6 +72,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		1923B1251C95E1C20041C77B /* UserDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDetailViewController.swift; sourceTree = "<group>"; };
 		1935E69E1C8618C500449C48 /* JFCardSelectionViewControllerExmaple.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JFCardSelectionViewControllerExmaple.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1935E6A11C8618C500449C48 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1935E6A31C8618C500449C48 /* UserSelectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSelectionViewController.swift; sourceTree = "<group>"; };
@@ -139,6 +141,7 @@
 			children = (
 				1935E6A11C8618C500449C48 /* AppDelegate.swift */,
 				1935E6A31C8618C500449C48 /* UserSelectionViewController.swift */,
+				1923B1251C95E1C20041C77B /* UserDetailViewController.swift */,
 				1935E6A51C8618C500449C48 /* Main.storyboard */,
 				1935E6A81C8618C500449C48 /* Assets.xcassets */,
 				1935E6AA1C8618C500449C48 /* LaunchScreen.storyboard */,
@@ -332,6 +335,7 @@
 			files = (
 				1935E6A41C8618C500449C48 /* UserSelectionViewController.swift in Sources */,
 				1935E6A21C8618C500449C48 /* AppDelegate.swift in Sources */,
+				1923B1261C95E1C20041C77B /* UserDetailViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

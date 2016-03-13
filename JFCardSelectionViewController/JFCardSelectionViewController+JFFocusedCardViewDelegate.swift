@@ -28,14 +28,31 @@ extension JFCardSelectionViewController: JFFocusedCardViewDelegate {
     
     func focusedCardViewDidSelectActionItemOne(focusedCardView: JFFocusedCardView) {
         guard let actionOne = focusedCardView.card.actionOne else { return }
-        guard let indexPath = collectionView.indexPathsForSelectedItems()?.first else { return }
-        delegate?.cardSelectionViewController(self, didSelectCardAction: actionOne, forCardAtIndexPath: indexPath)
+        if let indexPath = collectionView.indexPathsForSelectedItems()?.first {
+            delegate?.cardSelectionViewController(self, didSelectCardAction: actionOne, forCardAtIndexPath: indexPath)
+        } else {
+            let indexPath = NSIndexPath(forItem: 0, inSection: 0)
+            delegate?.cardSelectionViewController(self, didSelectCardAction: actionOne, forCardAtIndexPath: indexPath)
+        }
     }
     
     func focusedCardViewDidSelectActionItemTwo(focusedCardView: JFFocusedCardView) {
         guard let actionTwo = focusedCardView.card.actionTwo else { return }
-        guard let indexPath = collectionView.indexPathsForSelectedItems()?.first else { return }
-        delegate?.cardSelectionViewController(self, didSelectCardAction: actionTwo, forCardAtIndexPath: indexPath)
+        if let indexPath = collectionView.indexPathsForSelectedItems()?.first {
+            delegate?.cardSelectionViewController(self, didSelectCardAction: actionTwo, forCardAtIndexPath: indexPath)
+        } else {
+            let indexPath = NSIndexPath(forItem: 0, inSection: 0)
+            delegate?.cardSelectionViewController(self, didSelectCardAction: actionTwo, forCardAtIndexPath: indexPath)
+        }
+    }
+    
+    func focusedCardViewDidSelectDetailAction(focusedCardView: JFFocusedCardView) {
+        if let indexPath = collectionView.indexPathsForSelectedItems()?.first {
+            delegate?.cardSelectionViewController(self, didSelectDetailActionForCardAtIndexPath: indexPath)
+        } else {
+            let indexPath = NSIndexPath(forItem: 0, inSection: 0)
+            delegate?.cardSelectionViewController(self, didSelectDetailActionForCardAtIndexPath: indexPath)
+        }
     }
     
 }

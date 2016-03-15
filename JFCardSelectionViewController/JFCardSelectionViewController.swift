@@ -64,6 +64,15 @@ public class JFCardSelectionViewController: UIViewController {
     public var backgroundImage: UIImage? {
         didSet {
             bgImageView.image = backgroundImage
+            UIView.animateWithDuration(0.3, animations: {
+                self.bgImageView.alpha = 1
+                self.bgImageViewTwo.alpha = 0
+            }) { (finished) -> Void in
+                if finished {
+                    self.bgImageViewTwo.image = nil
+                    self.showingImageViewOne = true
+                }
+            }
         }
     }
     public var delegate: JFCardSelectionViewControllerDelegate?

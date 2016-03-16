@@ -26,7 +26,7 @@
 
 //  NOTE:
 //  This was adapted from the gist here: https://gist.github.com/sketchytech/d0a8909459aea899e67c
-//  That gist gave me a great starting point for learning how to determine the CGPoints around are circle and being able to draw lines and labels in or around the circle in equal distances
+//  That gist gave me a great starting point for learning how to determine the CGPoints around a circle and being able to draw lines and labels in or around the circle in equal distances
 
 import UIKit
 
@@ -65,11 +65,13 @@ class DialView: UIView {
         
         drawText(newRect, ctx: ctx, radius: rad, color: UIColor.whiteColor())
         
-        pointerLayer.frame = rect
-        layer.addSublayer(pointerLayer)
-        pointerLayer.setNeedsDisplay()
-        let startingRotation = rotationForLabel("A")
-        pointerLayer.transform = CATransform3DMakeAffineTransform(CGAffineTransformMakeRotation(startingRotation))
+        if pointerLayer.superlayer != layer {
+            pointerLayer.frame = rect
+            layer.addSublayer(pointerLayer)
+            pointerLayer.setNeedsDisplay()
+            let startingRotation = rotationForLabel("A")
+            pointerLayer.transform = CATransform3DMakeAffineTransform(CGAffineTransformMakeRotation(startingRotation))
+        }
     }
     
     func rotatePointerToLabel(label: String) {

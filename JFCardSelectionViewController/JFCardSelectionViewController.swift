@@ -254,7 +254,7 @@ public class JFCardSelectionViewController: UIViewController {
         let w = 44
         let metrics = ["w": w, "h": h]
         var acc = AccessoryIndicator.withColor(color, facing: .Left, size: CGSize(width: w, height: h))
-        acc.addTarget(self, action: Selector("previousCard"), forControlEvents: .TouchUpInside)
+        acc.addTarget(self, action: #selector(previousCard), forControlEvents: .TouchUpInside)
         acc.translatesAutoresizingMaskIntoConstraints = false
         view.insertSubview(acc, belowSubview: focusedView)
         view.addConstraint(NSLayoutConstraint(item: acc, attribute: .CenterY, relatedBy: .Equal, toItem: focusedView, attribute: .CenterY, multiplier: 1, constant: 0))
@@ -263,7 +263,7 @@ public class JFCardSelectionViewController: UIViewController {
         
         acc = AccessoryIndicator.withColor(color, facing: .Right, size: CGSize(width: w, height: h))
         acc.translatesAutoresizingMaskIntoConstraints = false
-        acc.addTarget(self, action: Selector("nextCard"), forControlEvents: .TouchUpInside)
+        acc.addTarget(self, action: #selector(nextCard), forControlEvents: .TouchUpInside)
         view.insertSubview(acc, belowSubview: focusedView)
         view.addConstraint(NSLayoutConstraint(item: acc, attribute: .CenterY, relatedBy: .Equal, toItem: focusedView, attribute: .CenterY, multiplier: 1, constant: 0))
         view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:[acc(==h)]", options: NSLayoutFormatOptions(rawValue: 0), metrics: metrics, views: ["acc": acc]))

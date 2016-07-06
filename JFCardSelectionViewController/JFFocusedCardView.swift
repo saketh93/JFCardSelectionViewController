@@ -57,7 +57,7 @@ class JFFocusedCardView: UIView {
         actionTwoButton.layer.cornerRadius = 2
         actionTwoButton.layer.borderColor = UIColor.whiteColor().colorWithAlphaComponent(0.5).CGColor
         actionTwoButton.layer.borderWidth = 0.5
-        recognizer = UITapGestureRecognizer(target: self, action: Selector("tapAction"))
+        recognizer = UITapGestureRecognizer(target: self, action: #selector(tapAction))
         imageView.addGestureRecognizer(recognizer)
         imageView.userInteractionEnabled = true
     }

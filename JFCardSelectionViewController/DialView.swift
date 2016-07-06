@@ -103,7 +103,7 @@ class DialView: UIView {
             let xpo = cx - r * cos(angle * CGFloat(i) + degreeToRadian(adjustment))
             let ypo = cy - r * sin(angle * CGFloat(i) + degreeToRadian(adjustment))
             points.append(CGPoint(x: xpo, y: ypo))
-            i--
+            i -= 1
         }
         return points
     }

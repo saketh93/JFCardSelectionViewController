@@ -16,7 +16,7 @@ Pod::Spec.new do |s|
   #
 
   s.name         = "JFCardSelectionViewController"
-  s.version      = "1.0"
+  s.version      = "1.0.1"
   s.summary      = "A fancy collection style view controller that provides an easy-to-use and beautilful UI/UX for presenting data (Ex. Contacts)"
   s.requires_arc = true
 

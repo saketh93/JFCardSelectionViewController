@@ -161,7 +161,7 @@ $ git clone --recursive git@github.com:atljeremy/JFCardSelectionViewController.g
 
 ### Cocoapods
 
-`pod 'JFCardSelectionViewController', '~> 1.0,4'`
+`pod 'JFCardSelectionViewController', '~> 1.0.4'`
 
 License
 -------

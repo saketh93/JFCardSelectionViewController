@@ -3,6 +3,8 @@ JFCardSelectionViewController
 
 A fancy collection style view controller that was inspired by this Profile Card mockup: https://dribbble.com/shots/1458441-Profile-Card/attachments/216311
 
+[![CocoaPods](https://img.shields.io/cocoapods/v/JFCardSelectionViewController.svg?maxAge=2592000)]() [![CocoaPods](https://img.shields.io/cocoapods/l/JFCardSelectionViewController.svg?maxAge=2592000)]() [![CocoaPods](https://img.shields.io/cocoapods/p/JFCardSelectionViewController.svg?maxAge=2592000)]()
+
 What It Looks Like:
 ------------------
 
@@ -159,7 +161,7 @@ $ git clone --recursive git@github.com:atljeremy/JFCardSelectionViewController.g
 
 ### Cocoapods
 
-`coming soon`
+`pod 'JFCardSelectionViewController', '~> 1.0,4'`
 
 License
 -------

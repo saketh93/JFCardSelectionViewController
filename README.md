@@ -149,6 +149,14 @@ extension User: CardPresentable {
 }
 ```
 
+### Cloning Source
+
+If you'd like to clone the repository, you'll need to initialize and update the submodule before the project will build. Simply do the following to clone the repo then initialize and update the submodule, all in one command.
+
+```shell
+$ git clone --recursive git@github.com:atljeremy/JFCardSelectionViewController.git
+```
+
 ### Cocoapods
 
 `coming soon`

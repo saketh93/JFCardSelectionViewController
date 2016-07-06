@@ -94,6 +94,10 @@ Pod::Spec.new do |s|
   # s.public_header_files = "JFMinimalNotification/*.h"
 
 
+  s.subspec 'Extensions' do |extensions|
+    extensions.source_files = 'Vendor/Extensions/Extensions/*.swift'
+  end
+
   # ――― Resources ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
   #
   #  A list of resources included with the Pod. These are copied into the

@@ -183,12 +183,13 @@ public class JFCardSelectionViewController: UIViewController {
         view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|[collectionView]|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: views))
         view.layoutIfNeeded()
         
+        let offset: CGFloat = 40
         var width = CGRectGetWidth(view.frame)
-        var y = CGRectGetMaxY(view.frame) - 40
+        var y = CGRectGetMidY(collectionView.frame) + offset
         
         dialView.translatesAutoresizingMaskIntoConstraints = false
         view.insertSubview(dialView, belowSubview: collectionView)
-        metrics = ["width": CGRectGetWidth(view.frame), "y": CGRectGetMaxY(view.frame) - 60]
+        metrics = ["width": CGRectGetWidth(view.frame), "y": y]
         view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-(y)-[dialView(==width)]", options: NSLayoutFormatOptions(rawValue: 0), metrics: metrics, views: ["dialView": dialView]))
         view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|[dialView(==width)]|", options: NSLayoutFormatOptions(rawValue: 0), metrics: metrics, views: ["dialView": dialView]))
         view.layoutIfNeeded()
@@ -196,7 +197,7 @@ public class JFCardSelectionViewController: UIViewController {
         bottomCircleOutlineView.backgroundColor = UIColor.clearColor()
         view.insertSubview(bottomCircleOutlineView, belowSubview: dialView)
         width += 15
-        y -= 27.5
+        y -= offset / 4.5
         bottomCircleOutlineView.frame = CGRect(x: 0, y: y, width: width, height: width)
         let trackingLine = UIView(frame: CGRect(x: 0, y: 0, width: width, height: width))
         trackingLine.makeRoundWithBorder(width: 2, color: UIColor.whiteColor().colorWithAlphaComponent(0.5))

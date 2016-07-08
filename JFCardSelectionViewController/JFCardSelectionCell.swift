@@ -46,10 +46,12 @@ class JFCardSelectionCell: UICollectionViewCell {
         if rotation < 0.0 {
             y *= -1
             y *= (rotation * -1)
+            y *= (rotation * -1)
         } else {
             y *= rotation
+            y *= rotation
         }
-        return ((y * height) / 1.8) + (height / 2.5)
+        return fabs((y * height) / CGFloat(M_PI_2)) + fabs(height / CGFloat(M_PI))
     }
     
     deinit {

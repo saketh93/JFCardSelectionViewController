@@ -3,6 +3,7 @@ JFCardSelectionViewController
 
 A fancy collection style view controller that was inspired by this Profile Card mockup: https://dribbble.com/shots/1458441-Profile-Card/attachments/216311
 
+[![Carthage compatible](https://img.shields.io/badge/Carthage-Compatible-brightgreen.svg?style=flat)](https://github.com/atljeremy/JFCardSelectionViewController) 
 [![CocoaPods](https://img.shields.io/cocoapods/v/JFCardSelectionViewController.svg?maxAge=2592000)]() [![CocoaPods](https://img.shields.io/cocoapods/l/JFCardSelectionViewController.svg?maxAge=2592000)]() [![CocoaPods](https://img.shields.io/cocoapods/p/JFCardSelectionViewController.svg?maxAge=2592000)]()
 
 What It Looks Like:
@@ -158,6 +159,10 @@ If you'd like to clone the repository, you'll need to initialize and update the 
 ```shell
 $ git clone --recursive git@github.com:atljeremy/JFCardSelectionViewController.git
 ```
+
+### Carthage
+
+`github "atljeremy/JFCardSelectionViewController" ~> 1.0`
 
 ### Cocoapods
 

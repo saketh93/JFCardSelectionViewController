@@ -168,7 +168,7 @@ You can use [CocoaPods](http://cocoapods.org/) to install `JFCardSelectionViewCo
 ```ruby
 platform :ios, '8.0'
 use_frameworks!
-`pod 'JFCardSelectionViewController', '~> 1.0.4'`
+pod 'JFCardSelectionViewController', '~> 1.0.4'
 ```
 
 To get the full benefits import `JFCardSelectionViewController` wherever you import UIKit

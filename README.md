@@ -160,33 +160,35 @@ If you'd like to clone the repository, you'll need to initialize and update the 
 $ git clone --recursive git@github.com:atljeremy/JFCardSelectionViewController.git
 ```
 
-### Carthage
+### Installation
 
-`github "atljeremy/JFCardSelectionViewController" ~> 1.0`
+#### CocoaPods
+You can use [CocoaPods](http://cocoapods.org/) to install `JFCardSelectionViewController` by adding it to your `Podfile`:
 
-### Cocoapods
-
+```ruby
+platform :ios, '8.0'
+use_frameworks!
 `pod 'JFCardSelectionViewController', '~> 1.0.4'`
+```
+
+To get the full benefits import `JFCardSelectionViewController` wherever you import UIKit
+
+``` swift
+import UIKit
+import JFCardSelectionViewController
+```
+
+#### Carthage
+Create a `Cartfile` that lists the framework and run `carthage update`. Follow the [instructions](https://github.com/Carthage/Carthage#if-youre-building-for-ios) to add `$(SRCROOT)/Carthage/Build/iOS/JFCardSelectionViewController.framework` to an iOS project.
+
+```
+`github "atljeremy/JFCardSelectionViewController" ~> 1.0`
+```
+
+#### Manually
+1. Download and drop ```/JFCardSelectionViewController``` folder in your project.  
+2. Congratulations!  
 
 License
 -------
-Copyright (c) 2012 Jeremy Fox ([jeremyfox.me](http://www.jeremyfox.me)). All rights reserved.
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in
-all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
-
+Distributed under the ```MIT``` license. See ```LICENSE``` for more information.

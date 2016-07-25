@@ -182,7 +182,7 @@ import JFCardSelectionViewController
 Create a `Cartfile` that lists the framework and run `carthage update`. Follow the [instructions](https://github.com/Carthage/Carthage#if-youre-building-for-ios) to add `$(SRCROOT)/Carthage/Build/iOS/JFCardSelectionViewController.framework` to an iOS project.
 
 ```
-`github "atljeremy/JFCardSelectionViewController" ~> 1.0`
+github "atljeremy/JFCardSelectionViewController" ~> 1.0
 ```
 
 #### Manually

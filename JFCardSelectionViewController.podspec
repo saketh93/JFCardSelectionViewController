@@ -76,8 +76,8 @@ Pod::Spec.new do |s|
 
   s.source       = { 
     :git => "https://github.com/atljeremy/JFCardSelectionViewController.git", 
-    :tag => "1.0.6",
-    :submodules => true 
+    :tag => s.version,
+#    :submodules => true 
   }
 
 

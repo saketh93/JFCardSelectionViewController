@@ -23,14 +23,14 @@ class UserSelectionViewController: JFCardSelectionViewController {
         delegate = self
         
         // Set the desired `JFCardSelectionViewSelectionAnimationStyle` to either `.Slide` or `.Fade`. Defaults to `.Fade`.
-        selectionAnimationStyle = .Slide
+        selectionAnimationStyle = .slide
         
         // Call up to super after configuring your subclass of `JFCardSelectionViewController`. Calling super before configuring will cause undesirable side effects.
         super.viewDidLoad()
         
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
         /*
@@ -38,18 +38,18 @@ class UserSelectionViewController: JFCardSelectionViewController {
         */
         let image = UIImage()
         let navBar = navigationController?.navigationBar
-        navBar?.setBackgroundImage(image, forBarMetrics: .Default)
+        navBar?.setBackgroundImage(image, for: .default)
         navBar?.shadowImage = image
         
         // Call `reloadData()` once you are ready to display your `CardPresentable` data or when there have been changes to that data that need to be represented in the UI.
         reloadData()
     }
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "ShowUserDetailVC" {
-            guard let indexPath = sender as? NSIndexPath else { return }
+            guard let indexPath = sender as? IndexPath else { return }
             let user = cards[indexPath.row]
-            let userDetailVC = segue.destinationViewController as? UserDetailViewController
+            let userDetailVC = segue.destination as? UserDetailViewController
             userDetailVC?.user = user
         }
     }
@@ -58,11 +58,11 @@ class UserSelectionViewController: JFCardSelectionViewController {
 
 extension UserSelectionViewController: JFCardSelectionViewControllerDataSource {
     
-    func numberOfCardsForCardSelectionViewController(cardSelectionViewController: JFCardSelectionViewController) -> Int {
+    func numberOfCardsForCardSelectionViewController(_ cardSelectionViewController: JFCardSelectionViewController) -> Int {
         return cards.count
     }
     
-    func cardSelectionViewController(cardSelectionViewController: JFCardSelectionViewController, cardForItemAtIndexPath indexPath: NSIndexPath) -> CardPresentable {
+    func cardSelectionViewController(_ cardSelectionViewController: JFCardSelectionViewController, cardForItemAtIndexPath indexPath: IndexPath) -> CardPresentable {
         return cards[indexPath.row]
     }
     
@@ -70,18 +70,18 @@ extension UserSelectionViewController: JFCardSelectionViewControllerDataSource {
 
 extension UserSelectionViewController: JFCardSelectionViewControllerDelegate {
     
-    func cardSelectionViewController(cardSelectionViewController: JFCardSelectionViewController, didSelectCardAction cardAction: CardAction, forCardAtIndexPath indexPath: NSIndexPath) {
+    func cardSelectionViewController(_ cardSelectionViewController: JFCardSelectionViewController, didSelectCardAction cardAction: CardAction, forCardAtIndexPath indexPath: IndexPath) {
         let card = cards[indexPath.row]
-        if let action = card.actionOne where action.title == cardAction.title {
+        if let action = card.actionOne, action.title == cardAction.title {
             print("----------- \nCard action fired! \nAction Title: \(cardAction.title) \nIndex Path: \(indexPath)")
         }
-        if let action = card.actionTwo where action.title == cardAction.title {
+        if let action = card.actionTwo, action.title == cardAction.title {
             print("----------- \nCard action fired! \nAction Title: \(cardAction.title) \nIndex Path: \(indexPath)")
         }
     }
     
-    func cardSelectionViewController(cardSelectionViewController: JFCardSelectionViewController, didSelectDetailActionForCardAtIndexPath indexPath: NSIndexPath) {
-        performSegueWithIdentifier("ShowUserDetailVC", sender: indexPath)
+    func cardSelectionViewController(_ cardSelectionViewController: JFCardSelectionViewController, didSelectDetailActionForCardAtIndexPath indexPath: IndexPath) {
+        performSegue(withIdentifier: "ShowUserDetailVC", sender: indexPath)
     }
     
 }
@@ -248,7 +248,7 @@ extension User: CardPresentable {
     }
     
     var dialLabel: String {
-        guard let lastString = titleText.componentsSeparatedByString(" ").last else { return "" }
+        guard let lastString = titleText.components(separatedBy: " ").last else { return "" }
         return String(lastString[lastString.startIndex])
     }
     

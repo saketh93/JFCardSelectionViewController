@@ -21,17 +21,17 @@ class UserDetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         guard let _user = user else { fatalError("No user to display.") }
-        bgImageView.backgroundColor = UIColor.blackColor()
+        bgImageView.backgroundColor = UIColor.black
         titleLabel.text = _user.name
         addressLabel.text = _user.detailTextLineOne
         cityStZipLabel.text = _user.detailTextLineTwo
     }
 
-    @IBAction func callButtonAction(sender: AnyObject) {
+    @IBAction func callButtonAction(_ sender: AnyObject) {
         print("Call Button Action!")
     }
     
-    @IBAction func emailButtonAction(sender: AnyObject) {
+    @IBAction func emailButtonAction(_ sender: AnyObject) {
         print("Email Button Action!")
     }
 }

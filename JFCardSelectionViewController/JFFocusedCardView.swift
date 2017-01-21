@@ -26,16 +26,16 @@
 import UIKit
 
 protocol JFFocusedCardViewDelegate {
-    func focusedCardViewDidSelectDetailAction(focusedCardView: JFFocusedCardView) -> Void
-    func focusedCardViewDidSelectActionItemOne(focusedCardView: JFFocusedCardView) -> Void
-    func focusedCardViewDidSelectActionItemTwo(focusedCardView: JFFocusedCardView) -> Void
+    func focusedCardViewDidSelectDetailAction(_ focusedCardView: JFFocusedCardView) -> Void
+    func focusedCardViewDidSelectActionItemOne(_ focusedCardView: JFFocusedCardView) -> Void
+    func focusedCardViewDidSelectActionItemTwo(_ focusedCardView: JFFocusedCardView) -> Void
 }
 
 class JFFocusedCardView: UIView {
 
     var card: CardPresentable!
     var delegate: JFFocusedCardViewDelegate?
-    private var recognizer: UITapGestureRecognizer!
+    fileprivate var recognizer: UITapGestureRecognizer!
     @IBOutlet var imageView: UIImageView!
     @IBOutlet var titleLabel: UILabel!
     @IBOutlet var subTitleLabelOne: UILabel!
@@ -47,22 +47,22 @@ class JFFocusedCardView: UIView {
         super.awakeFromNib()
         imageView.clipsToBounds = true
         imageView.layer.cornerRadius = 2
-        imageView.layer.borderColor = UIColor.whiteColor().colorWithAlphaComponent(0.4).CGColor
+        imageView.layer.borderColor = UIColor.white.withAlphaComponent(0.4).cgColor
         imageView.layer.borderWidth = 0.5
-        actionOneButton.hidden = true
+        actionOneButton.isHidden = true
         actionOneButton.layer.cornerRadius = 2
-        actionOneButton.layer.borderColor = UIColor.whiteColor().colorWithAlphaComponent(0.5).CGColor
+        actionOneButton.layer.borderColor = UIColor.white.withAlphaComponent(0.5).cgColor
         actionOneButton.layer.borderWidth = 0.5
-        actionTwoButton.hidden = true
+        actionTwoButton.isHidden = true
         actionTwoButton.layer.cornerRadius = 2
-        actionTwoButton.layer.borderColor = UIColor.whiteColor().colorWithAlphaComponent(0.5).CGColor
+        actionTwoButton.layer.borderColor = UIColor.white.withAlphaComponent(0.5).cgColor
         actionTwoButton.layer.borderWidth = 0.5
         recognizer = UITapGestureRecognizer(target: self, action: #selector(tapAction))
         imageView.addGestureRecognizer(recognizer)
-        imageView.userInteractionEnabled = true
+        imageView.isUserInteractionEnabled = true
     }
     
-    func configureForCard(card: CardPresentable?) {
+    func configureForCard(_ card: CardPresentable?) {
         guard let _card = card else {
             self.card = nil
             self.imageView.image = nil
@@ -76,14 +76,14 @@ class JFFocusedCardView: UIView {
         
         if let _actionOne = self.card.actionOne {
             let title = NSAttributedString(string: _actionOne.title, attributes: ShadowAttributes.forLabelMedium)
-            actionOneButton.setAttributedTitle(title, forState: .Normal)
-            actionOneButton.hidden = false
+            actionOneButton.setAttributedTitle(title, for: UIControlState())
+            actionOneButton.isHidden = false
         }
         
         if let _actionTwo = self.card.actionTwo {
             let title = NSAttributedString(string: _actionTwo.title, attributes: ShadowAttributes.forLabelMedium)
-            actionTwoButton.setAttributedTitle(title, forState: .Normal)
-            actionTwoButton.hidden = false
+            actionTwoButton.setAttributedTitle(title, for: UIControlState())
+            actionTwoButton.isHidden = false
         }
         
 
@@ -94,11 +94,11 @@ class JFFocusedCardView: UIView {
         subTitleLabelTwo.attributedText = NSAttributedString(string: self.card.detailTextLineTwo, attributes: ShadowAttributes.forLabelSoft)
     }
 
-    @IBAction func actionOneButtonAction(sender: AnyObject) {
+    @IBAction func actionOneButtonAction(_ sender: AnyObject) {
         delegate?.focusedCardViewDidSelectActionItemOne(self)
     }
     
-    @IBAction func actionTwoButtonAction(sender: AnyObject) {
+    @IBAction func actionTwoButtonAction(_ sender: AnyObject) {
         delegate?.focusedCardViewDidSelectActionItemTwo(self)
     }
     

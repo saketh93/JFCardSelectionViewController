@@ -31,17 +31,17 @@ class JFCardSelectionCell: UICollectionViewCell {
     
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var label: UILabel!
-    private weak var scrollView: UIScrollView!
+    fileprivate weak var scrollView: UIScrollView!
     var card: CardPresentable?
-    private var rotation: CGFloat {
+    fileprivate var rotation: CGFloat {
         guard let _scrollView = scrollView else { return 0 }
         guard let _superView = _scrollView.superview else { return 0 }
-        let position = _superView.convertPoint(self.center, fromView: scrollView)
-        let superViewCenterX = CGRectGetMidX(_superView.frame)
+        let position = _superView.convert(self.center, from: scrollView)
+        let superViewCenterX = _superView.frame.midX
         return ((position.x - superViewCenterX) / superViewCenterX) / 1.3
     }
-    private var centerY: CGFloat {
-        let height = CGRectGetHeight(scrollView.frame)
+    fileprivate var centerY: CGFloat {
+        let height = scrollView.frame.height
         var y = rotation
         if rotation < 0.0 {
             y *= -1
@@ -72,24 +72,24 @@ class JFCardSelectionCell: UICollectionViewCell {
         label.text = nil
     }
     
-    func configureForCard(card: CardPresentable, inScrollView scrollView: UIScrollView) {
+    func configureForCard(_ card: CardPresentable, inScrollView scrollView: UIScrollView) {
         
         self.card = card
         self.scrollView = scrollView
-        self.scrollView.addObserver(self, forKeyPath: "contentOffset", options: .New, context: nil)
+        self.scrollView.addObserver(self, forKeyPath: "contentOffset", options: .new, context: nil)
         
         imageView.loadImageAtURL(card.imageURLString, withDefaultImage: card.placeholderImage)
         
-        self.transform = CGAffineTransformMakeRotation(rotation)
+        self.transform = CGAffineTransform(rotationAngle: rotation)
         center.y = centerY
         
         label.attributedText = NSAttributedString(string: card.titleText, attributes: ShadowAttributes.forLabelSoft)
     }
     
-    override func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<Void>) {
+    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
         
 //        if (card?.titleText ?? "") == "Avery Smith" {
-        self.transform = CGAffineTransformMakeRotation(rotation)
+        self.transform = CGAffineTransform(rotationAngle: rotation)
         center.y = centerY
 //        }
     }

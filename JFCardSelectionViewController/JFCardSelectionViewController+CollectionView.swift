@@ -27,7 +27,7 @@ import UIKit
 
 extension JFCardSelectionViewController: UICollectionViewDelegate {
     
-    public func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+    public func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard indexPath != previouslySelectedIndexPath else {
             shake()
             return
@@ -42,23 +42,25 @@ extension JFCardSelectionViewController: UICollectionViewDelegate {
 }
 
 extension JFCardSelectionViewController: UICollectionViewDataSource {
-    public func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         guard let _dataSource = dataSource else { return 0 }
         return _dataSource.numberOfCardsForCardSelectionViewController(self)
     }
     
-    public func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        return collectionView.dequeueReusableCellWithReuseIdentifier(JFCardSelectionCell.reuseIdentifier, forIndexPath: indexPath)
-    }
-    
-    public func collectionView(collectionView: UICollectionView, willDisplayCell cell: UICollectionViewCell, forItemAtIndexPath indexPath: NSIndexPath) {
-        guard let cell = cell as? JFCardSelectionCell else { fatalError("Expected to display a `JFCardSelectionCell`.") }
-        guard let _dataSource = dataSource else { return }
+    public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: JFCardSelectionCell.reuseIdentifier, for: indexPath) as? JFCardSelectionCell else {
+            fatalError("Expected to display a `JFCardSelectionCell`.")
+        }
+        guard let _dataSource = dataSource else {
+            return cell
+        }
         let card = _dataSource.cardSelectionViewController(self, cardForItemAtIndexPath: indexPath)
         cell.configureForCard(card, inScrollView: collectionView)
-        if (collectionView.indexPathsForSelectedItems()?.count ?? 0) == 0 && indexPath.section == 0 && indexPath.row == 0 && focusedView.card == nil && previouslySelectedIndexPath == nil {
+        if (collectionView.indexPathsForSelectedItems?.count ?? 0) == 0 && indexPath.section == 0 && indexPath.row == 0 && focusedView.card == nil && previouslySelectedIndexPath == nil {
             focusedView.configureForCard(card)
             previouslySelectedIndexPath = indexPath
         }
+        
+        return cell
     }
 }

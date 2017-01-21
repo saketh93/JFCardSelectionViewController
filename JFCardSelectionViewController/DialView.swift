@@ -33,66 +33,67 @@ import UIKit
 class DialView: UIView {
 
     let pointerLayer = PointerLayer()
-    private var rotation: Double = -0.563
-    private let sides = 110
+    fileprivate var rotation: Double = -0.563
+    fileprivate let sides = 110
     var labels: [String] {
         return ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"]
     }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        backgroundColor = UIColor.clearColor()
+        backgroundColor = UIColor.clear
     }
 
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    override func drawRect(rect: CGRect) {
+    override func draw(_ rect: CGRect) {
         
         guard let ctx = UIGraphicsGetCurrentContext() else { return }
         let endAngle = CGFloat(2 * M_PI)
-        let newRect = CGRect(x: CGRectGetMinX(rect) + 20, y: CGRectGetMinY(rect) + 20, width: CGRectGetWidth(rect) - 40, height: CGRectGetHeight(rect) - 40)
-        let rad = CGRectGetWidth(newRect) / 2
+        let newRect = CGRect(x: rect.minX + 20, y: rect.minY + 20, width: rect.width - 40, height: rect.height - 40)
+        let rad = newRect.width / 2
+        let center = CGPoint(x: rect.midX, y: rect.midY)
         
-        CGContextAddArc(ctx, CGRectGetMidX(rect), CGRectGetMidY(newRect), rad, 0, endAngle, 1)
-        CGContextSetFillColorWithColor(ctx, UIColor.whiteColor().colorWithAlphaComponent(0.4).CGColor)
-        CGContextSetStrokeColorWithColor(ctx, UIColor.whiteColor().colorWithAlphaComponent(0.7).CGColor)
-        CGContextSetLineWidth(ctx, 0.5)
-        CGContextDrawPath(ctx, .FillStroke)
+        ctx.addArc(center: center, radius: rad, startAngle: 0, endAngle: endAngle, clockwise: true)
+        ctx.setFillColor(UIColor.white.withAlphaComponent(0.4).cgColor)
+        ctx.setStrokeColor(UIColor.white.withAlphaComponent(0.7).cgColor)
+        ctx.setLineWidth(0.5)
+        ctx.drawPath(using: .fillStroke)
         
-        drawMarkers(ctx, x: CGRectGetMidX(newRect), y: CGRectGetMidY(newRect), radius: rad, sides: sides, color: UIColor.whiteColor())
+        drawMarkers(ctx, x: newRect.midX, y: newRect.midY, radius: rad, sides: sides, color: UIColor.white)
         
-        drawText(newRect, ctx: ctx, radius: rad, color: UIColor.whiteColor())
+        drawText(newRect, ctx: ctx, radius: rad, color: UIColor.white)
         
         if pointerLayer.superlayer != layer {
             pointerLayer.frame = rect
             layer.addSublayer(pointerLayer)
             pointerLayer.setNeedsDisplay()
             let startingRotation = rotationForLabel("A")
-            pointerLayer.transform = CATransform3DMakeAffineTransform(CGAffineTransformMakeRotation(startingRotation))
+            pointerLayer.transform = CATransform3DMakeAffineTransform(CGAffineTransform(rotationAngle: startingRotation))
         }
     }
     
-    func rotatePointerToLabel(label: String) {
+    func rotatePointerToLabel(_ label: String) {
         let rotateTo = rotationForLabel(label)
-        let transform = CATransform3DMakeAffineTransform(CGAffineTransformMakeRotation(rotateTo))
+        let transform = CATransform3DMakeAffineTransform(CGAffineTransform(rotationAngle: rotateTo))
         if pointerLayer.superlayer == layer && !CATransform3DEqualToTransform(pointerLayer.transform, transform) {
             pointerLayer.transform = transform
         }
     }
     
-    private func degreeToRadian(a: CGFloat) -> CGFloat {
+    fileprivate func degreeToRadian(_ a: CGFloat) -> CGFloat {
         return CGFloat(M_PI) * a / 180
     }
     
-    private func rotationForLabel(label: String) -> CGFloat {
-        guard let index = labels.indexOf(label) else { return CGFloat(rotation) }
+    fileprivate func rotationForLabel(_ label: String) -> CGFloat {
+        guard let index = labels.index(of: label) else { return CGFloat(rotation) }
         let rotationStep: CGFloat = 0.045
         return (CGFloat(rotation) + (CGFloat(index) * rotationStep)) / CGFloat(M_PI_4)
     }
     
-    private func circleCircumferencePoints(sides: Int, _ x: CGFloat, _ y: CGFloat, _ radius: CGFloat, adjustment: CGFloat = 0) -> [CGPoint] {
+    fileprivate func circleCircumferencePoints(_ sides: Int, _ x: CGFloat, _ y: CGFloat, _ radius: CGFloat, adjustment: CGFloat = 0) -> [CGPoint] {
         let angle = degreeToRadian(360/CGFloat(sides))
         let cx = x // x origin
         let cy = y // y origin
@@ -108,52 +109,52 @@ class DialView: UIView {
         return points
     }
     
-    private func drawMarkers(ctx: CGContextRef, x: CGFloat, y: CGFloat, radius: CGFloat, sides: Int, color: UIColor) {
+    fileprivate func drawMarkers(_ ctx: CGContext, x: CGFloat, y: CGFloat, radius: CGFloat, sides: Int, color: UIColor) {
         let points = circleCircumferencePoints(sides, x, y, radius)
-        let path = CGPathCreateMutable()
+        let path = CGMutablePath()
         let divider:CGFloat = 0.03
-        for (_,p) in points.enumerate() {
+        for (_,p) in points.enumerated() {
             let xn = p.x + divider * (x - p.x)
             let yn = p.y + divider * (y - p.y)
             // build path
-            CGPathMoveToPoint(path, nil, p.x, p.y)
-            CGPathAddLineToPoint(path, nil, xn, yn)
-            CGPathCloseSubpath(path)
+            path.move(to: p)
+            path.addLine(to: CGPoint(x: xn, y: yn))
+            path.closeSubpath()
             // add path to context
-            CGContextAddPath(ctx, path)
+            ctx.addPath(path)
         }
-        let cgcolor = color.CGColor
-        CGContextSetStrokeColorWithColor(ctx, cgcolor)
-        CGContextSetLineWidth(ctx, 1)
-        CGContextStrokePath(ctx)
+        let cgcolor = color.cgColor
+        ctx.setStrokeColor(cgcolor)
+        ctx.setLineWidth(1)
+        ctx.strokePath()
     }
     
-    private func drawText(rect: CGRect, ctx: CGContextRef, radius: CGFloat, color: UIColor) {
+    fileprivate func drawText(_ rect: CGRect, ctx: CGContext, radius: CGFloat, color: UIColor) {
         // Flip text co-ordinate space, see: http://blog.spacemanlabs.com/2011/08/quick-tip-drawing-core-text-right-side-up/
-        CGContextTranslateCTM(ctx, 0.0, CGRectGetHeight(rect))
-        CGContextScaleCTM(ctx, 1.0, -1.0)
+        ctx.translateBy(x: 0.0, y: rect.height)
+        ctx.scaleBy(x: 1.0, y: -1.0)
         // dictates how inset/outset the ring of labels will be
         let inset:CGFloat = 40
         // An adjustment to position labels correctly
-        let points = circleCircumferencePoints(sides, CGRectGetMidX(rect), CGRectGetMidY(rect) - inset, radius + (inset / CGFloat(M_PI)), adjustment: 314)
-        for (i,p) in points.enumerate() {
+        let points = circleCircumferencePoints(sides, rect.midX, rect.midY - inset, radius + (inset / CGFloat(M_PI)), adjustment: 314)
+        for (i,p) in points.enumerated() {
             guard i > 0 else { continue }
             guard i < labels.count + 1 else { return }
             let index = i - 1
-            let aFont = UIFont.systemFontOfSize(8, weight: UIFontWeightLight)
-            let attr: CFDictionaryRef = [NSFontAttributeName:aFont, NSForegroundColorAttributeName:UIColor.blackColor()]
-            let text = CFAttributedStringCreate(nil, labels[index], attr)
-            let line = CTLineCreateWithAttributedString(text)
-            let bounds = CTLineGetBoundsWithOptions(line, CTLineBoundsOptions.UseOpticalBounds)
-            CGContextSetLineWidth(ctx, 0.7)
-            CGContextSetTextDrawingMode(ctx, .Fill)
+            let aFont = UIFont.systemFont(ofSize: 8, weight: UIFontWeightLight)
+            let attr = [NSFontAttributeName as String: aFont, NSForegroundColorAttributeName as String: UIColor.black] as CFDictionary
+            let text = CFAttributedStringCreate(nil, labels[index] as CFString!, attr)
+            let line = CTLineCreateWithAttributedString(text!)
+            let bounds = CTLineGetBoundsWithOptions(line, CTLineBoundsOptions.useOpticalBounds)
+            ctx.setLineWidth(0.7)
+            ctx.setTextDrawingMode(.fill)
             let xn = p.x - bounds.width / 2
             let yn = p.y - bounds.midY
-            CGContextSetTextPosition(ctx, xn, yn)
+            ctx.textPosition = CGPoint(x: xn, y: yn)
             // the line of text is drawn - see https://developer.apple.com/library/ios/DOCUMENTATION/StringsTextFonts/Conceptual/CoreText_Programming/LayoutOperations/LayoutOperations.html
             // draw the line of text
             CTLineDraw(line, ctx)
-            CGContextRotateCTM(ctx, 0.0)
+            ctx.rotate(by: 0.0)
         }
     }
 

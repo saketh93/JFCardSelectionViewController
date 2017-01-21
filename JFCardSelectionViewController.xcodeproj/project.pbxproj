@@ -213,6 +213,7 @@
 				TargetAttributes = {
 					1935E67A1C86186100449C48 = {
 						CreatedOnToolsVersion = 7.2.1;
+						LastSwiftMigration = 0820;
 					};
 					1935E6841C86186100449C48 = {
 						CreatedOnToolsVersion = 7.2.1;
@@ -401,6 +402,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
@@ -419,6 +421,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.jeremyfox.JFCardSelectionViewController;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};

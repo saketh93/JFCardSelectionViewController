@@ -20,10 +20,10 @@
 		1935E6FF1C86526D00449C48 /* JFFocusedCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1935E6FE1C86526D00449C48 /* JFFocusedCardView.swift */; };
 		1935E7011C86527D00449C48 /* JFFocusedCardView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1935E7001C86527D00449C48 /* JFFocusedCardView.xib */; };
 		19AE5E521C8A2620005295EA /* AccessoryIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19AE5E511C8A2620005295EA /* AccessoryIndicator.swift */; };
-		1AB2A9F61D2D4C06008789E5 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AB2A9F31D2D4C06008789E5 /* String.swift */; };
-		1AB2A9F71D2D4C06008789E5 /* UIImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AB2A9F41D2D4C06008789E5 /* UIImageView.swift */; };
-		1AB2A9F81D2D4C06008789E5 /* UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AB2A9F51D2D4C06008789E5 /* UIView.swift */; };
 		1AB955CB1C88899F00A8E776 /* ShadowAttributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AB955CA1C88899F00A8E776 /* ShadowAttributes.swift */; };
+		84FBD9C22227B39B00ED9799 /* UIImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84FBD9BF2227B39B00ED9799 /* UIImageView.swift */; };
+		84FBD9C32227B39B00ED9799 /* UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84FBD9C02227B39B00ED9799 /* UIView.swift */; };
+		84FBD9C42227B39B00ED9799 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84FBD9C12227B39B00ED9799 /* String.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,10 +53,10 @@
 		1935E6FE1C86526D00449C48 /* JFFocusedCardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JFFocusedCardView.swift; sourceTree = "<group>"; };
 		1935E7001C86527D00449C48 /* JFFocusedCardView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = JFFocusedCardView.xib; sourceTree = "<group>"; };
 		19AE5E511C8A2620005295EA /* AccessoryIndicator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccessoryIndicator.swift; sourceTree = "<group>"; };
-		1AB2A9F31D2D4C06008789E5 /* String.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = String.swift; path = Extensions/String.swift; sourceTree = "<group>"; };
-		1AB2A9F41D2D4C06008789E5 /* UIImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UIImageView.swift; path = Extensions/UIImageView.swift; sourceTree = "<group>"; };
-		1AB2A9F51D2D4C06008789E5 /* UIView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UIView.swift; path = Extensions/UIView.swift; sourceTree = "<group>"; };
 		1AB955CA1C88899F00A8E776 /* ShadowAttributes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShadowAttributes.swift; sourceTree = "<group>"; };
+		84FBD9BF2227B39B00ED9799 /* UIImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIImageView.swift; sourceTree = "<group>"; };
+		84FBD9C02227B39B00ED9799 /* UIView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIView.swift; sourceTree = "<group>"; };
+		84FBD9C12227B39B00ED9799 /* String.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -89,9 +89,9 @@
 		1923B0FB1C92565E0041C77B /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				1AB2A9F31D2D4C06008789E5 /* String.swift */,
-				1AB2A9F41D2D4C06008789E5 /* UIImageView.swift */,
-				1AB2A9F51D2D4C06008789E5 /* UIView.swift */,
+				84FBD9C12227B39B00ED9799 /* String.swift */,
+				84FBD9BF2227B39B00ED9799 /* UIImageView.swift */,
+				84FBD9C02227B39B00ED9799 /* UIView.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -262,15 +262,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1AB2A9F81D2D4C06008789E5 /* UIView.swift in Sources */,
 				1923B0E21C90B5890041C77B /* DialView.swift in Sources */,
-				1AB2A9F61D2D4C06008789E5 /* String.swift in Sources */,
+				84FBD9C42227B39B00ED9799 /* String.swift in Sources */,
 				19AE5E521C8A2620005295EA /* AccessoryIndicator.swift in Sources */,
 				1935E6E31C862E3000449C48 /* JFCardSelectionCell.swift in Sources */,
-				1AB2A9F71D2D4C06008789E5 /* UIImageView.swift in Sources */,
 				1935E6DE1C86194100449C48 /* JFCardSelectionViewController.swift in Sources */,
+				84FBD9C32227B39B00ED9799 /* UIView.swift in Sources */,
 				1AB955CB1C88899F00A8E776 /* ShadowAttributes.swift in Sources */,
 				1923B1181C93137C0041C77B /* JFCardSelectionViewController+JFFocusedCardViewDelegate.swift in Sources */,
+				84FBD9C22227B39B00ED9799 /* UIImageView.swift in Sources */,
 				1923B0E41C91BCA10041C77B /* PointerLayer.swift in Sources */,
 				1935E6FF1C86526D00449C48 /* JFFocusedCardView.swift in Sources */,
 				1923B1161C9310D10041C77B /* JFCardSelectionViewController+CollectionView.swift in Sources */,

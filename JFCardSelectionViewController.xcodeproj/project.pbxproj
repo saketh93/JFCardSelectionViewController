@@ -78,16 +78,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		1923B0FB1C92565E0041C77B /* Extensions */ = {
-			isa = PBXGroup;
-			children = (
-				84FBD9C12227B39B00ED9799 /* String.swift */,
-				84FBD9BF2227B39B00ED9799 /* UIImageView.swift */,
-				84FBD9C02227B39B00ED9799 /* UIView.swift */,
-			);
-			path = Extensions;
-			sourceTree = "<group>";
-		};
 		1935E6711C86186100449C48 = {
 			isa = PBXGroup;
 			children = (
@@ -112,6 +102,9 @@
 				1935E6E81C8645B200449C48 /* Supporting Files */,
 				1935E6DD1C86194100449C48 /* JFCardSelectionViewController.swift */,
 				1923B1171C93137C0041C77B /* JFCardSelectionViewController+JFFocusedCardViewDelegate.swift */,
+				84FBD9C12227B39B00ED9799 /* String.swift */,
+				84FBD9BF2227B39B00ED9799 /* UIImageView.swift */,
+				84FBD9C02227B39B00ED9799 /* UIView.swift */,
 				1923B1151C9310D10041C77B /* JFCardSelectionViewController+CollectionView.swift */,
 				1935E6E11C862E3000449C48 /* JFCardSelectionCell.swift */,
 				1935E6E21C862E3000449C48 /* JFCardSelectionCell.xib */,
@@ -138,7 +131,6 @@
 		1935E6E81C8645B200449C48 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				1923B0FB1C92565E0041C77B /* Extensions */,
 				1935E6801C86186100449C48 /* Info.plist */,
 			);
 			name = "Supporting Files";
